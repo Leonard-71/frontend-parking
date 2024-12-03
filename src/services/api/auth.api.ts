@@ -10,4 +10,12 @@ export const authApi = {
             throw new Error('Eroare la autentificare');
         }
     },
+    register: async (userData: any) => {
+        try {
+            const response = await apiClient.post('/register', userData);
+            return response.data;
+        } catch (error) {
+            throw new Error('Eroare la înregistrare');
+        }
+    }
 }; 
