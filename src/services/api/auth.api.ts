@@ -1,12 +1,13 @@
 import { apiClient } from './api.config';
-import { LoginCredentials, LoginResponse } from '../../types/auth.types';
+import { LoginCredentials } from '../../types/auth.types';
 
 export const authApi = {
-    login: async (credentials: LoginCredentials): Promise<LoginResponse> => {
-        const { data } = await apiClient.post<LoginResponse>('/auth/login', credentials);
-        return data;
+    login: async (credentials: LoginCredentials) => {
+        try {
+            const response = await apiClient.post('/login', credentials);
+            return response.data;
+        } catch (error) {
+            throw new Error('Eroare la autentificare');
+        }
     },
-    register: async (userData: { firstName: string; lastName: string; email: string; password: string; phone: string; }): Promise<void> => {
-        await apiClient.post('/auth/register', userData);
-    }
 }; 
