@@ -1,0 +1,35 @@
+#car {
+    width: 350px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 15px;
+    margin-left: -175px;
+    background: url(http://pictures.dealer.com/f/ferrariofnewengland/1375/02c9b56522a6966289dc07a579be55e5x.jpg) center center no-repeat;
+    background-size: cover;
+    z-index: 1;
+    animation: carMove 1s infinite alternate;
+}
+
+@keyframes carMove {
+    0% {
+        transform: translateX(-10px); 
+    }
+    100% {
+        transform: translateX(10px);  
+    }
+}
+
+
+.road_lane{width:32px; height:45%; position:absolute; bottom:0; left:50%; margin-left:-30px; overflow:hidden;}
+.road_lane:after{
+   content:'';
+   width:10px; height:100%; border-left:18px dashed #DDD; position:absolute; left:50%; margin-left:-5px; bottom:0; animation:road_anim 1s infinite linear;
+}
+@keyframes road_anim{
+   from{bottom:18%;}
+   to{bottom:0%;}
+}
+
+

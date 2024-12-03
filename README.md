@@ -1,21 +1,68 @@
-# React + TypeScript + Vite
+# Documentație pentru Aplicația de Abonamente
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descriere
+Această aplicație este construită folosind **Next.js**, un framework React pentru dezvoltarea de aplicații web. Permite utilizatorilor să vizualizeze și să gestioneze abonamentele. Interfața este construită cu ajutorul componentelor React și este stilizată folosind Tailwind CSS.
 
-While this project uses React, Vite supports many popular JS frameworks. [See all the supported frameworks](https://vitejs.dev/guide/#scaffolding-your-first-vite-project).
+## Cerințe
+Pentru a rula aplicația, asigurați-vă că aveți instalate următoarele:
 
-## Deploy Your Own
+- [Node.js](https://nodejs.org/) (versiunea 14 sau mai recentă)
+- [npm](https://www.npmjs.com/) (inclus cu Node.js)
 
-Deploy your own Vite project with Vercel.
+## Instalare
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/vite-react&template=vite-react)
+1. **Clonați repository-ul:**
+   ```bash
+   git clone https://github.com/username/repo-name.git
+   cd repo-name
+   ```
 
-_Live Example: https://vite-react-example.vercel.app_
+2. **Instalați dependențele:**
+   ```bash
+   npm install
+   ```
 
-### Deploying From Your Terminal
+## Rulare
 
-You can deploy your new Vite project with a single command from your terminal using [Vercel CLI](https://vercel.com/download):
+Pentru a porni aplicația în modul de dezvoltare, utilizați comanda:
 
-```shell
-$ vercel
+```bash
+npm run dev
 ```
+
+Aplicația va fi disponibilă la [http://localhost:3000](http://localhost:3000).
+
+## Structura Proiectului
+
+- `src/`
+  - `components/` - Componentele reutilizabile ale aplicației.
+  - `hooks/` - Hook-uri personalizate pentru gestionarea stării.
+  - `pages/` - Pagini principale ale aplicației.
+  - `constants/` - Constante utilizate în aplicație.
+
+## Librării și Tool-uri Utilizate
+
+- **Next.js** - Framework pentru React care permite dezvoltarea rapidă a aplicațiilor web.
+- **React** - Biblioteca principală pentru construirea interfeței utilizator.
+- **TypeScript** - Limbaj de programare care extinde JavaScript cu tipuri statice.
+- **Tailwind CSS** - Framework CSS pentru stilizarea rapidă a componentelor.
+- **Axios** - Pentru efectuarea cererilor HTTP (dacă este cazul).
+
+## Contribuții
+
+Dacă doriți să contribuiți la acest proiect, urmați acești pași:
+
+1. Fork-uiți repository-ul.
+2. Creați o ramură nouă (`git checkout -b feature-numele-feature-ului`).
+3. Faceți modificările dorite și adăugați-le (`git add .`).
+4. Comiteți modificările (`git commit -m 'Adăugat o nouă caracteristică'`).
+5. Împingeți ramura (`git push origin feature-numele-feature-ului`).
+6. Deschideți un Pull Request.
+
+## Licență
+
+Acest proiect este licențiat sub Licența MIT. Vă rugăm să consultați fișierul `LICENSE` pentru detalii.
+
+## Contact
+
+Pentru întrebări sau sugestii, vă rugăm să ne contactați la [email@example.com](mailtofilip:leonard71@yahoo.com).

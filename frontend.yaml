@@ -1,0 +1,49 @@
+name: Paeking Project
+version: 1.0.0
+description: A web application built with Next.js for managing parking subscriptions.
+
+dependencies:
+  - name: next
+    version: ^12.0.0
+    description: React framework for rapid web application development.
+  - name: react
+    version: ^17.0.0
+    description: The main library for building user interfaces.
+  - name: react-dom
+    version: ^17.0.0
+    description: Library for manipulating the DOM in React applications.
+  - name: typescript
+    version: ^4.0.0
+    description: Programming language that extends JavaScript with static types.
+  - name: tailwindcss
+    version: ^2.0.0
+    description: CSS framework for rapid component styling.
+  - name: axios
+    version: ^0.21.0
+    description: Library for making HTTP requests.
+
+scripts:
+  start: npm run dev
+  build: npm run build
+  preview: npm run preview
+
+production:
+  build_instructions: |
+    To build the application for production, run:
+      npm run build
+    This will compile the TypeScript code and build the application using Vite.
+  
+  preview_instructions: |
+    To preview the built application, run:
+      npm run preview
+    This will start a preview server to serve the built application.
+
+repository:
+  type: git
+  url: https://github.com/Leonard-71/PPAW.git
+
+license: MIT
+
+author:
+  name: Filip Leonard
+  email: filipleonard71@yahoo.com
