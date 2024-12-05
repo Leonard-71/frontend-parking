@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { LoginCredentials, AuthError } from '../../types/auth.types';
-import { authApi } from '../../services/api/auth.api';
-import { LOGIN_TEXTS } from '../../constants/auth/login.constants';
+import { useNavigate } from 'react-router-dom'; 
+import { authApi } from '../api/auth.api';
+import { LOGIN_TEXTS } from '../../translations/login/login';
+import { AuthError } from '../../interface/login/error.interface';
+import { LoginCredentials } from '../../interface/login/credentils.interface';
 
 export const useAuth = () => {
   const navigate = useNavigate();

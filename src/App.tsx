@@ -9,6 +9,8 @@ import Vehicles from './pages/Vehicles';
 import SubscriptionHistory from './pages/SubscriptionHistory';
 import UserProfile from './pages/UserProfile';
 
+import AuthenticatedLayout from './components/Layouts/AuthenticatedLayout';
+
 function App() {
   return (
     <BrowserRouter>
@@ -16,11 +18,14 @@ function App() {
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/homepage" element={<Homepage />} />
-        <Route path="/subscription" element={<Subscription />} />
-        <Route path="/vehicles" element={<Vehicles />} />
-        <Route path="/subscription-history" element={<SubscriptionHistory />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route element={<AuthenticatedLayout />}>
+          <Route path="/homepage" element={<Homepage />} />
+          <Route path="/subscription" element={<Subscription />} />
+          <Route path="/vehicles" element={<Vehicles />} />
+          <Route path="/subscription-history" element={<SubscriptionHistory />} />
+          <Route path="/profile" element={<UserProfile />} />
+        </Route>
+
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
       <ToastContainer />

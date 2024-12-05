@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Navbar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
-import { USER_PROFILE_TEXTS } from '../constants/userProfile.constants';
+import { USER_PROFILE_TEXTS } from '../translations/user-profile/userProfile';
 
 const UserProfile = () => {
     const { userId } = useParams<{ userId: string }>();
@@ -25,7 +23,7 @@ const UserProfile = () => {
         const fetchUserData = async () => {
             await new Promise((resolve) => setTimeout(resolve, 1000));
             setUser(mockUserData);
-            setFormData(mockUserData); // Initialize form data
+            setFormData(mockUserData);
         };
 
         fetchUserData();
@@ -47,17 +45,15 @@ const UserProfile = () => {
 
     if (!user) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-800 to-gray-900 text-white text-xl">
+            <div className="w-full flex items-center justify-center bg-gradient-to-r from-gray-800 to-gray-900 text-white text-xl">
                 {USER_PROFILE_TEXTS.loading}
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen flex flex-col bg-gradient-to-r from-gray-800 to-gray-900 text-white">
-            <Navbar />
+        <div className=" w-full flex flex-col bg-gradient-to-r from-gray-800 to-gray-900 text-white">
             <div className="flex-grow flex flex-col items-center p-10 space-y-10">
-                {/* Profil utilizator */}
                 <div className="bg-white text-gray-900 w-full max-w-5xl rounded-lg shadow-2xl p-8">
                     <div className="flex items-center mb-6">
                         <div
@@ -148,7 +144,6 @@ const UserProfile = () => {
                     )}
                 </div>
             </div>
-            <Footer />
         </div>
     );
 };

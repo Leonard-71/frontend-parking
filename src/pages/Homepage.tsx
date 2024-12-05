@@ -1,7 +1,5 @@
-import Navbar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
 import { useState } from 'react';
-import Modal from '../components/common/Modal';
+import Modal from '../components/modal/Modal';
 
 const Homepage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,10 +15,8 @@ const Homepage = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-200">
-
-            <Navbar />
-            <div className="flex-grow flex flex-col justify-center items-center text-center p-6 bg-gray-800">
+        <div className="flex-grow flex flex-col justify-center items-center text-center p-6 bg-gradient-to-r from-gray-800 to-gray-900">
+            <div className="mt-6 flex space-x-4">
 
                 <div className="mt-6 flex space-x-4">
                     <button
@@ -37,9 +33,6 @@ const Homepage = () => {
                     </button>
                 </div>
             </div>
-
-
-            <Footer />
             {isModalOpen && (
                 <Modal
                     isOpen={isModalOpen}

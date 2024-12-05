@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { Button } from '../components/common/Button/Button';
-import { Input } from '../components/common/Input/Input';
-import { authApi } from '../services/api/auth.api';
+import { Button } from '../components/Button/Button';
+import { Input } from '../components/Input/Input';
+import { authApi } from '../hooks/api/auth.api';
 import { toast } from 'react-toastify';
-import { REGISTER_TEXTS } from '../constants/auth/register.constants';
 import CarAnimation from '../components/animations/car/CarAnimation';
+import { REGISTER_TEXTS } from '../translations/register/register';
 
 const Register = () => {
     const [formData, setFormData] = useState({

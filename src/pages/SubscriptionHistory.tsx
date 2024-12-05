@@ -1,7 +1,4 @@
 import { useEffect, useState } from 'react';
-import Footer from '../components/common/Footer';
-import Navbar from '../components/common/Navbar';
-
 const SubscriptionHistory = () => {
     const [subscriptions] = useState([
         { id: 1, name: 'Abonament Premium', type: 'Lunar', price: 29.99, startDate: '2023-01-01', endDate: '2024-01-01', isActive: true },
@@ -13,9 +10,8 @@ const SubscriptionHistory = () => {
     }, []);
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-200">
-            <Navbar />
-            <div className="flex-grow p-8 bg-gray-800">
+        <div className="w-full flex flex-col bg-gradient-to-r from-gray-800 to-gray-900">
+            <div className="flex-grow p-8">
                 <h1 className="text-2xl font-bold mb-8 text-white text-center">Istoricul abonamentelor</h1>
                 <table
                     className="bg-white border border-gray-300 rounded-lg shadow-lg mx-auto"
@@ -50,7 +46,6 @@ const SubscriptionHistory = () => {
                     </tbody>
                 </table>
             </div>
-            <Footer />
         </div>
     );
 };

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
-import { VEHICLE_TEXTS } from '../constants/vehicles/vehecles.constants';
+import { VEHICLE_TEXTS } from '../translations/vehicles/vehecles';
 
 const Vehicles = () => {
     const [vehicles, setVehicles] = useState<{ id: number; model: string; licensePlate: string; brand: string }[]>([]);
@@ -64,9 +62,8 @@ const Vehicles = () => {
     };
 
     return (
-        <div className="min-h-screen flex flex-col bg-gray-100">
-            <Navbar />
-            <div className="flex-grow flex p-9 bg-gradient-to-r from-gray-800 to-gray-900">
+        <div className="w-full flex flex-col bg-gradient-to-r from-gray-800 to-gray-900 ">
+            <div className="flex-grow flex p-9 ">
                 <div className="flex-1 pr-10">
                     <h2 className="text-3xl font-bold mb-8 text-white text-center drop-shadow-lg">{VEHICLE_TEXTS.vehicleList}</h2>
                     <div className="h-full overflow-y-auto">
@@ -158,7 +155,6 @@ const Vehicles = () => {
                     </form>
                 </div>
             </div>
-            <Footer />
             {confirmDelete !== null && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-6 rounded-lg shadow-lg">
