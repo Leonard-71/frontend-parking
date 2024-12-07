@@ -32,7 +32,7 @@ const Register = () => {
         try {
             await register(formData);
             setTimeout(() => {
-                window.location.href = "/login"; // Navigare către login după succes
+                window.location.href = "/login";
             }, 2000);
         } catch (err) {
             console.error("Eroare la crearea contului:", err);
@@ -43,7 +43,7 @@ const Register = () => {
         <div
             className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-cover bg-center"
             style={{
-                backgroundImage: "url('https://image.ibb.co/c7Ce5F/beauty_of_an_open_road.jpg')",
+                backgroundImage: "url('/intro.jpg')",
             }}
         >
             <div className="bg-white rounded-lg shadow-lg p-10 max-w-md w-full">

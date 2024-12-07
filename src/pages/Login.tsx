@@ -19,7 +19,7 @@ const Login = () => {
     <div
       className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-cover bg-center"
       style={{
-        backgroundImage: "url('https://image.ibb.co/c7Ce5F/beauty_of_an_open_road.jpg')",
+        backgroundImage: "url('/intro.jpg')",
       }}
     >
       <div className="sm:mx-auto sm:w-full sm:max-w-md bg-white bg-opacity-90 py-8 px-4 shadow sm:rounded-lg sm:px-10 mt-[-100px] z-10">
