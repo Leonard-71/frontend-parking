@@ -9,4 +9,6 @@ export interface SubscriptionCardProps {
         createdAt: string;
         updatedAt: string;
     };
+    isPopupOpen: boolean;  
+    onPopupOpen: () => void;
 }

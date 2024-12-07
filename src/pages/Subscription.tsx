@@ -15,7 +15,9 @@ const Subscription = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {Array.isArray(subscriptions) && subscriptions.length > 0 ? (
                         subscriptions.map((subscription, index) => (
-                            <SubscriptionCard key={index} subscription={subscription} />
+                            <SubscriptionCard key={index} subscription={subscription} isPopupOpen={false} onPopupOpen={function (): void {
+                                throw new Error('Function not implemented.');
+                            }} />
                         ))
                     ) : (
                         !loading && <p className="text-gray-100">Nu există abonamente disponibile.</p>

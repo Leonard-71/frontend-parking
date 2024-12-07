@@ -1,4 +1,5 @@
 export const SUBSCRIPTION_CARD_TEXTS = {
+    loading: 'Se încarcă...',
     title: 'Abonamente',
     type: 'Tip: ',
     price: 'Preț: ',
@@ -8,4 +9,13 @@ export const SUBSCRIPTION_CARD_TEXTS = {
     inside :'Interior',
     outside: 'Exterior',
     missing: 'lipsa',
+    confirmTitle: 'Confirmare abonament',
+    confirmMessage: 'Ești sigur că dorești să te abonezi la acest plan?',
+    cancel: 'Anulează',
+    confirm: 'Confirmă',
+    successMessage: "Felicitări! Te-ai abonat cu succes la planul",
+    errorMessage: "Abonarea a eșuat. Încearcă din nou.",
+    duplicateSubscriptionError: 'Aveți deja un abonament activ de acest tip.',
+    alreadyActive: 'Abonamentul este deja activ', 
+
 };
