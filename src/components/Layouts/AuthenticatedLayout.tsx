@@ -1,8 +1,15 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import Navbar from "../navbar/Navbar";
 import Footer from "../footer/Footer";
+import { isTokenExpired } from "../../hooks/api/tokenExpired";
 
 function AuthenticatedLayout() {
+  const token = localStorage.getItem("access_token");
+
+  if (!token || isTokenExpired(token)) {
+    return <Navigate to="/login" replace />;
+  }
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -15,4 +22,3 @@ function AuthenticatedLayout() {
 }
 
 export default AuthenticatedLayout;
-

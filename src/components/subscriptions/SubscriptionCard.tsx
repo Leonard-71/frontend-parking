@@ -1,4 +1,3 @@
-import React from 'react';
 import { SUBSCRIPTION_CARD_TEXTS } from '../../translations/subscription/card-subscriptions';
 import { SubscriptionCardProps } from '../../interface/subscription-card/subscription-card.interface';
 

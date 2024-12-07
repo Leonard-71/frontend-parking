@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { userNavbar } from '../../hooks/navbar/userNavbar';
 import { NAVBAR_TEXTS } from '../../translations/navbar/navbar';
+import { setGlobalUserId } from '../../hooks/userIdStore';
 
 interface NavbarProps {
     className?: string;
@@ -11,10 +12,13 @@ interface NavbarProps {
 function Navbar({ className }: NavbarProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user, loading, error } = userNavbar();
-
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
+
+    if (user?.id) {
+        setGlobalUserId(user.id);
+    }
 
     return (
         <nav className={`bg-gray-950 p-4 ${className}`}>

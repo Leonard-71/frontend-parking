@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { VEHICLE_TEXTS } from '../translations/vehicles/vehecles';
 
 const Vehicles = () => {

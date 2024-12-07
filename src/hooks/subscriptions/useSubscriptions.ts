@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { apiClient } from '../api/api.config';  
+import { apiClient } from '../api/apiClient';  
 
 const useSubscriptions = () => {
     const [subscriptions, setSubscriptions] = useState<any[]>([]);
@@ -10,8 +10,7 @@ const useSubscriptions = () => {
         const fetchSubscriptions = async () => {
             try {
                 setLoading(true);
-                const response = await apiClient.get('/subscriptions');
-                console.log('Răspuns API:', response.data);  
+                const response = await apiClient.get('/subscriptions'); 
                 setSubscriptions(response.data.subscriptions); 
             } catch (err) {
                 console.error('Eroare la preluarea subscripțiilor:', err);

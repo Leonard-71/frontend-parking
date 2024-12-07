@@ -4,8 +4,6 @@ import useSubscriptions from '../hooks/subscriptions/useSubscriptions';
 const Subscription = () => {
     const { subscriptions, loading, error } = useSubscriptions();
 
-    console.log('subscriptions:', subscriptions);
-
     return (
         <div className="flex-grow flex flex-col justify-center items-center text-center p-6 bg-gradient-to-r from-gray-800 to-gray-900">
             <div className='py-20'>
