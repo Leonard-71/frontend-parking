@@ -50,14 +50,19 @@ const Vehicles = () => {
         }
     };
 
-    const handleDeleteVehicle = async (id: string) => {
+    const handleDeleteVehicle = async (id: string, type: 'soft' | 'hard') => {
         try {
-            await vehicleService.deleteVehicle(id);
+            if (type === 'soft') {
+                await vehicleService.softDeleteVehicle(id);
+            } else {
+                await vehicleService.hardDeleteVehicle(id);
+            }
             await fetchVehicles();
         } catch (error) {
-            console.error('Failed to delete vehicle:', error);
+            console.error(`Failed to ${type} delete vehicle:`, error);
         }
     };
+
 
     if (loading) return <p>Loading vehicles...</p>;
     if (error) return <p>{error}</p>;
@@ -74,6 +79,7 @@ const Vehicles = () => {
                         onEdit={setEditingVehicle}
                         onDelete={handleDeleteVehicle}
                     />
+
                 </div>
             </div>
 

@@ -25,7 +25,12 @@ export class VehicleService {
         return Array.isArray(response.data) ? response.data : [];
     }
     
-    async deleteVehicle(id: string): Promise<void> {
-        await apiClient.delete(`${this.baseUrl}/${id}`);
+    async softDeleteVehicle(id: string): Promise<void> {
+        await apiClient.delete(`${this.baseUrl}/soft/${id}`);
     }
+    
+    async hardDeleteVehicle(id: string): Promise<void> {
+        await apiClient.delete(`${this.baseUrl}/hard/${id}`);
+    }
+    
 }
