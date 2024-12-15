@@ -97,4 +97,4 @@ Acest proiect este licențiat sub Licența MIT. Vă rugăm să consultați fiși
 
 ## Contact
 
-Pentru întrebări sau sugestii, vă rugăm să ne contactați la [email@example.com](mailtofilip:leonard71@yahoo.com).
+Pentru întrebări sau sugestii, vă rugăm să ne contactați la [leonard@email.com](mailtofilip:filipleonard71@yahoo.com).

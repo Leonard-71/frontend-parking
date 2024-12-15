@@ -1,5 +1,6 @@
 {
-  "compilerOptions": { 
+  "compilerOptions": {
+    "jsx": "react", 
     "target": "ES2022",
     "lib": ["ES2023"],
     "module": "ESNext",
@@ -16,5 +17,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true, 
   },
-  "include": ["vite.config.ts", "src/**/*.ts", "global.d.ts"]
+  "include": ["vite.config.ts", "src/**/*.ts", "global.d.ts", "src/components/vehicle/vehicleList.tsx"]
 }
