@@ -1,39 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useVehicleContext } from "../../context/vehicle/VehicleContext";
 import { useCarService } from "../../context/homepage/CarServiceContext";
 import { getGlobalUserId } from "../../hooks/userIdStore";
 import { ModalContentProps } from "../../interface/modal/modal.interface";
-import ParkingSpots from "../parking-spots/parkingSpots";
-
-
+import ParkingSpots from "../parking-spots/ParkingSpots";
+import ParkingSpotService from "../../hooks/parking-spots/parkingSpotService";
+import ParkingSessionService from "../../hooks/parking-session/ParkingSessionService";
+import UserSubscriptionService from "../../hooks/user-subscriptions/UserSubscriptionService";
+import { ParkingSpot } from "../../interface/parking-spots/parkingSpots.interface";
 
 const ModalContent: React.FC<ModalContentProps> = ({ modalType, onClose }) => {
-    const { verifyOwnership, checkActiveSubscription } = useCarService();
-    const [registrationNumber, setRegistrationNumber] = useState("");
+    const { vehicles, fetchVehicles } = useVehicleContext();
+    const { checkActiveSubscription } = useCarService();
+    const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(null);
+    const [selectedSubscriptionId, setSelectedSubscriptionId] = useState<string | null>(null);
     const [verificationResult, setVerificationResult] = useState<string | null>(null);
     const [showParkingSpotsModal, setShowParkingSpotsModal] = useState(false);
-    const [selectedParkingSpot, setSelectedParkingSpot] = useState<string | null>(null);
+    const [selectedParkingSpot, setSelectedParkingSpot] = useState<ParkingSpot | null>(null);
+    const [isFinalizing, setIsFinalizing] = useState(false);
 
     const userId = getGlobalUserId();
 
+    useEffect(() => {
+        if (userId) {
+            fetchVehicles(userId);
+        }
+    }, [userId, fetchVehicles]);
+
     const handleVerify = async () => {
-        if (!userId) {
-            setVerificationResult("Eroare: ID-ul utilizatorului este invalid sau inexistent.");
+        if (!userId || !selectedVehicleId) {
+            setVerificationResult("Trebuie să selectați o mașină.");
             return;
         }
 
         try {
-            const carVerified = await verifyOwnership(userId, registrationNumber);
-            if (!carVerified) {
-                setVerificationResult("Mașina NU aparține acestui utilizator.");
-                return;
-            }
-
-            const hasActiveSubscription = await checkActiveSubscription(userId);
-            if (hasActiveSubscription) {
-                setVerificationResult("Mașina este validă și abonamentul este activ.");
+            const subscriptionData = await checkActiveSubscription(userId);
+            if (subscriptionData.isActive) {
+                setVerificationResult("Abonamentul este activ. Selectați un loc de parcare.");
+                setSelectedSubscriptionId(subscriptionData.subscriptionId);
                 setShowParkingSpotsModal(true);
             } else {
-                setVerificationResult("Mașina este validă, dar abonamentul NU este activ.");
+                setVerificationResult("Abonamentul NU este activ.");
             }
         } catch (error: any) {
             console.error("Eroare la verificare:", error.message);
@@ -41,17 +48,49 @@ const ModalContent: React.FC<ModalContentProps> = ({ modalType, onClose }) => {
         }
     };
 
-    const handleSpotSelect = (spotNumber: string) => {
-        setSelectedParkingSpot(spotNumber);
+    const handleSpotSelect = (spot: ParkingSpot) => {
+        setSelectedParkingSpot(spot);
+    };
+
+    const handleFinalize = async () => {
+        if (!userId || !selectedVehicleId || !selectedSubscriptionId || !selectedParkingSpot) {
+            setVerificationResult("Datele sunt incomplete pentru finalizare.");
+            return;
+        }
+
+        try {
+            // Actualizare loc de parcare
+            await ParkingSpotService.updateParkingSpot(selectedParkingSpot.id, { isOccupied: true });
+
+            // Creare sesiune de parcare
+            await ParkingSessionService.createSession({
+                userId,
+                carId: selectedVehicleId,
+                userSubscriptionId: selectedSubscriptionId,
+                parkingSpotId: selectedParkingSpot.id,
+                entryTime: new Date().toISOString(),
+            });
+
+            // Scădere din abonament
+            await UserSubscriptionService.decrementEntries(selectedSubscriptionId);
+
+            alert("Acțiunea a fost finalizată cu succes!");
+            onClose();
+        } catch (error: any) {
+            console.error("Eroare la finalizare:", error.message);
+            setVerificationResult("A apărut o eroare în timpul finalizării.");
+        }
     };
 
     const handleChooseSpot = () => {
         setShowParkingSpotsModal(false);
-        setVerificationResult(`Locul de parcare selectat: ${selectedParkingSpot}`);
+        setVerificationResult(`Locul de parcare selectat: ${selectedParkingSpot?.spotNumber}`);
+        setIsFinalizing(true);
     };
 
     const handleChangeSpot = () => {
         setShowParkingSpotsModal(true);
+        setIsFinalizing(false);
     };
 
     return (
@@ -61,18 +100,37 @@ const ModalContent: React.FC<ModalContentProps> = ({ modalType, onClose }) => {
                     <h2 className="text-2xl font-bold text-center text-gray-800">
                         {modalType === "intrare" ? "Bariera de intrare" : "Bariera de iesire"}
                     </h2>
-                    <label className="block mt-4 text-gray-600">Introduceți numărul mașinii:</label>
-                    <input
-                        type="text"
-                        className="border p-3 mt-2 w-full rounded text-center uppercase focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        placeholder="Introduceți numărul mașinii"
-                        value={registrationNumber}
-                        onChange={(e) => setRegistrationNumber(e.target.value)}
-                    />
+                    {vehicles.length > 0 ? (
+                        <select
+                            className="border p-3 mt-2 w-full rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value={selectedVehicleId || ""}
+                            onChange={(e) => setSelectedVehicleId(e.target.value)}
+                        >
+                            <option value="" disabled>
+                                Selectați o mașină
+                            </option>
+                            {vehicles.map((vehicle) => (
+                                <option key={vehicle.id} value={vehicle.id}>
+                                    {vehicle.registrationNumber}
+                                </option>
+                            ))}
+                        </select>
+                    ) : (
+                        <p className="text-center mt-2">Se încarcă vehiculele...</p>
+                    )}
                     {verificationResult && (
                         <p className="mt-4 text-lg text-center font-semibold text-gray-700">
                             {verificationResult}
                         </p>
+                    )}
+                    {selectedParkingSpot && (
+                        <div className="mt-4 p-4 bg-gray-100 rounded shadow">
+                            <p><strong>User ID:</strong> {userId}</p>
+                            <p><strong>Car ID:</strong> {selectedVehicleId}</p>
+                            <p><strong>Subscription ID:</strong> {selectedSubscriptionId}</p>
+                            <p><strong>Parking Spot ID:</strong> {selectedParkingSpot.id}</p>
+                            <p><strong>Parking Spot:</strong> {selectedParkingSpot.spotNumber}</p>
+                        </div>
                     )}
                     <div className="mt-6 flex justify-between items-center gap-4">
                         <button
@@ -90,10 +148,11 @@ const ModalContent: React.FC<ModalContentProps> = ({ modalType, onClose }) => {
                             </button>
                         )}
                         <button
-                            className="px-4 py-2 text-base font-semibold bg-green-600 text-white rounded hover:bg-green-700 w-full max-w-[120px]"
-                            onClick={handleVerify}
+                            className={`px-4 py-2 text-base font-semibold text-white rounded w-full max-w-[120px] ${isFinalizing ? "bg-green-600 hover:bg-green-700" : "bg-blue-600 hover:bg-blue-700"
+                                }`}
+                            onClick={isFinalizing ? handleFinalize : handleVerify}
                         >
-                            Verifică
+                            {isFinalizing ? "Finalizează" : "Verifică"}
                         </button>
                     </div>
                 </div>

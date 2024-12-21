@@ -1,3 +1,5 @@
+import { ParkingSpot } from "./parkingSpots.interface";
+
 export interface ParkingSpotsProps {
-    onSpotSelect: (spotNumber: string) => void;
+    onSpotSelect: (spot: ParkingSpot) => void;  
 }

@@ -19,33 +19,48 @@ export class CarService {
         }
     };
  
-    checkActiveSubscription = async (userId: string): Promise<boolean> => {
+    checkActiveSubscription = async (userId: string): Promise<{
+        isActive: boolean;
+        subscriptionId: string | null;
+        remainingEntries: number;
+        remainingExits: number;
+    }> => {
         try {
-            const url = `${this.subscriptionUrl}/${userId}`; 
-
+            const url = `${this.subscriptionUrl}/${userId}`;
+    
             const response = await apiClient.get<
                 Array<{
+                    id: string; 
                     isActive: boolean;
                     remainingEntries: number;
                     remainingExits: number;
                 }>
-            >(url); 
- 
+            >(url);
+    
             if (response.data.length > 0) {
                 const subscription = response.data[0];
-                return (
-                    subscription.isActive &&
-                    subscription.remainingEntries > 0 &&
-                    subscription.remainingExits > 0
-                );
+                if (subscription) {
+                    return {
+                        isActive: subscription.isActive,
+                        subscriptionId: subscription.id, 
+                        remainingEntries: subscription.remainingEntries,
+                        remainingExits: subscription.remainingExits,
+                    };
+                }
             }
- 
-            return false;
+    
+            return {
+                isActive: false,
+                subscriptionId: null,
+                remainingEntries: 0,
+                remainingExits: 0,
+            };
         } catch (error) {
             console.error('Error checking user subscription:', error);
             throw new Error('User subscription verification failed.');
         }
     };
+    
 
      
     

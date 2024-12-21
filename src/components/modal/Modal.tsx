@@ -1,10 +1,5 @@
+import { ModalProps } from '../../interface/modal/ModalProps.interface';
 import ModalContent from './ModalContent';
-
-interface ModalProps {
-    isOpen: boolean;
-    modalType: string;
-    onClose: () => void;
-}
 
 const Modal: React.FC<ModalProps> = ({ isOpen, modalType, onClose }) => {
     if (!isOpen) return null;

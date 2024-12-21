@@ -1,4 +1,3 @@
-// services/parkingSpotService.ts
 import { ParkingSpot } from '../../interface/parking-spots/parkingSpots.interface';
 import { apiClient } from '../api/apiClient';
 
