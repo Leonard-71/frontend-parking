@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Vehicle } from '../../interface/vehicle/vehicle.interface';
 import { VEHICLE_TEXTS } from '../../translations/vehicles/vehecles';
 declare var document: any;
@@ -36,7 +36,7 @@ const VehicleList: React.FC<{
                     <li
                         key={vehicle.id}
                         className="w-full max-w-[350px] mx-auto bg-white border border-gray-300 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 p-6 relative"
-                        onClick={(e) => e.stopPropagation()} // Evităm propagarea click-ului
+                        onClick={(e) => e.stopPropagation()}
                     >
                         <h3 className="font-bold text-2xl text-gray-800">{vehicle.registrationNumber}</h3>
                         <p className="text-gray-600 text-lg mt-2">
@@ -59,7 +59,7 @@ const VehicleList: React.FC<{
                         {isMenuOpen === vehicle.id && (
                             <div
                                 className="absolute right-2 top-10 bg-white border border-gray-300 rounded shadow-lg z-10"
-                                onClick={(e) => e.stopPropagation()} // Evităm închiderea la click în meniu
+                                onClick={(e) => e.stopPropagation()}
                             >
                                 <button
                                     onClick={() => onEdit(vehicle)}

@@ -4,13 +4,16 @@ import './index.css';
 import App from './App.tsx';
 import { VehicleServiceProvider } from './context/vehicle/vehicleServiceContext.tsx';
 import { CarServiceProvider } from './context/homepage/CarServiceContext.tsx';
+import { ParkingSpotProvider } from './context/parking-spot/parkingSpotServiceContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <CarServiceProvider>
-      <VehicleServiceProvider>
-        <App />
-      </VehicleServiceProvider>
-    </CarServiceProvider>
-  </StrictMode>
+    <ParkingSpotProvider>
+      <CarServiceProvider>
+        <VehicleServiceProvider>
+          <App />
+        </VehicleServiceProvider>
+      </CarServiceProvider>
+    </ParkingSpotProvider >
+  </StrictMode >
 );

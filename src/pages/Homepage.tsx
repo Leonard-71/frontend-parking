@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Modal from '../components/modal/Modal';
-import ParkingLot from '../components/parking-spots/ParkingLot';
 
 const Homepage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
