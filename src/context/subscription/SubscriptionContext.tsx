@@ -24,18 +24,15 @@ export const SubscriptionProvider = ({ children }: { children: ReactNode }) => {
             const data = await subscriptionService.getSubscriptions();
             setSubscriptions(data);
         } catch (err) {
-            console.error('Error:', err);
+            console.error('Error fetching subscriptions:', err);
             setError('Nu am putut prelua subscripțiile.');
         } finally {
             setLoading(false);
         }
     };
-
     useEffect(() => {
         fetchSubscriptions();
     }, []);
-
-
 
     return (
         <SubscriptionContext.Provider value={{ subscriptions, loading, error, fetchSubscriptions }}>
@@ -43,3 +40,4 @@ export const SubscriptionProvider = ({ children }: { children: ReactNode }) => {
         </SubscriptionContext.Provider>
     );
 };
+

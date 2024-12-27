@@ -7,7 +7,7 @@ export class SubscriptionService {
         const response = await apiClient.get(`${this.baseUrl}`); 
         return response.data.subscriptions;  
     }
-
+ 
     async getSubscriptionHistory(userId: string) {
         const response = await apiClient.get(`/user-subscriptions/user/${userId}`);
         return response.data;
@@ -22,4 +22,5 @@ export class SubscriptionService {
         const response = await apiClient.post('/user-subscriptions/check-active', { userId, subscriptionTypeId });
         return response.data;
     }
+         
 }

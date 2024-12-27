@@ -6,6 +6,7 @@ import { CarServiceProvider } from '../homepage/CarServiceContext';
 import { VehicleServiceProvider } from '../vehicle/vehicleServiceContext';
 import { ParkingSpotProvider } from '../parking-spot/parkingSpotServiceContext';
 import { SubscriptionProvider } from '../subscription/SubscriptionContext';
+import { SubscriptionHistoryProvider } from '../subscription-history/SubscriptionHistoryContext';
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -13,15 +14,17 @@ const AppProviders = ({ children }: { children: React.ReactNode }) => {
             <RegisterProvider>
                 <UserProvider>
                     <SubscriptionProvider>
-                        <VehicleServiceProvider>
-                            <VehicleProvider>
-                                <CarServiceProvider>
-                                    <ParkingSpotProvider>
-                                        {children}
-                                    </ParkingSpotProvider>
-                                </CarServiceProvider>
-                            </VehicleProvider>
-                        </VehicleServiceProvider>
+                        <SubscriptionHistoryProvider>
+                            <VehicleServiceProvider>
+                                <VehicleProvider>
+                                    <CarServiceProvider>
+                                        <ParkingSpotProvider>
+                                            {children}
+                                        </ParkingSpotProvider>
+                                    </CarServiceProvider>
+                                </VehicleProvider>
+                            </VehicleServiceProvider>
+                        </SubscriptionHistoryProvider>
                     </SubscriptionProvider>
                 </UserProvider>
             </RegisterProvider>

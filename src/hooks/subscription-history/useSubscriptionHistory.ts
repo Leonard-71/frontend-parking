@@ -1,30 +1,10 @@
-import { useState, useEffect } from 'react';
-import { apiClient } from '../../services/api/apiClient';
-import { SubscriptionHistory } from '../../interface/subscription-history/subscriptionHistory.interface';
+import { useContext } from 'react';
+import { SubscriptionHistoryContext } from '../../context/subscription-history/SubscriptionHistoryContext';
 
-const useSubscriptionHistory = (userId: string) => {
-    const [subscriptionsHistory, setSubscriptionsHistory] = useState<SubscriptionHistory[]>([]);  
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        const fetchSubscriptionHistory = async () => {
-            setLoading(true);
-            try {
-                const response = await apiClient.get(`/user-subscriptions/user/${userId}`);
-                setSubscriptionsHistory(response.data);
-            } catch (err: any) {
-                console.error('Eroare la încărcarea abonamentelor:', err);
-                setError('Eroare la încărcarea abonamentelor.');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchSubscriptionHistory();
-    }, [userId]);
-
-    return { subscriptionsHistory, loading, error };
+export const useSubscriptionHistoryContext = () => {
+    const context = useContext(SubscriptionHistoryContext);
+    if (!context) {
+        throw new Error('useSubscriptionHistoryContext trebuie utilizat în interiorul unui SubscriptionHistoryProvider.');
+    }
+    return context;
 };
-
-export default useSubscriptionHistory;
