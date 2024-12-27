@@ -1,13 +1,22 @@
-import { useState, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode';
-import { apiClient } from '../../services/api/apiClient';
+import { createContext, useState, ReactNode, useEffect } from 'react';
 import { User } from '../../interface/navbar/user.interface';
+import { UserService } from '../../services/user/UserService';
+import { jwtDecode } from 'jwt-decode';
 
+interface UserContextType {
+    user: User | null;
+    loading: boolean;
+    error: string | null;
+}
 
-export const userNavbar = () => {
+export const UserContext = createContext<UserContextType | undefined>(undefined);
+
+export const UserProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    const userService = new UserService();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -18,20 +27,27 @@ export const userNavbar = () => {
                     setLoading(false);
                     return;
                 }
-        
+
                 const decodedToken = jwtDecode<{ userId: string }>(token);
                 const userId = decodedToken.userId;
-        
-                const response = await apiClient.get(`/users/${userId}`); 
-                setUser(response.data.user);  
-            } catch (err) { 
+
+                const fetchedUser = await userService.fetchUser(userId);
+                setUser(fetchedUser);
+            } catch (err) {
+                console.error('Error fetching user:', err);
                 setError('Eroare la preluarea utilizatorului');
             } finally {
                 setLoading(false);
             }
         };
-        
+
         fetchUser();
     }, []);
-    return { user, loading, error };
+
+    return (
+        <UserContext.Provider value={{ user, loading, error }}>
+            {children}
+        </UserContext.Provider>
+    );
 };
+

@@ -1,30 +1,28 @@
-import { AuthProvider } from "../auth/AuthContext";
-import { CarServiceProvider } from "../homepage/CarServiceContext";
-import { ParkingSpotProvider } from "../parking-spot/parkingSpotServiceContext";
-import { RegisterProvider } from "../register/registerContext";
-import { UserProvider } from "../UserContext";
-import { VehicleProvider } from "../vehicle/VehicleContext";
-import { VehicleServiceProvider } from "../vehicle/vehicleServiceContext";
+import { AuthProvider } from '../auth/AuthContext';
+import { RegisterProvider } from '../register/registerContext';
+import { UserProvider } from '../user/UserContext';
+import { VehicleProvider } from '../vehicle/VehicleContext';
+import { CarServiceProvider } from '../homepage/CarServiceContext';
+import { VehicleServiceProvider } from '../vehicle/vehicleServiceContext';
+import { ParkingSpotProvider } from '../parking-spot/parkingSpotServiceContext';
 
-
-const AppProviders: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const AppProviders = ({ children }: { children: React.ReactNode }) => {
     return (
         <AuthProvider>
             <RegisterProvider>
                 <UserProvider>
-                    <ParkingSpotProvider>
-                        <CarServiceProvider>
-                            <VehicleServiceProvider>
-                                <VehicleProvider>
+                    <VehicleServiceProvider>
+                        <VehicleProvider>
+                            <CarServiceProvider>
+                                <ParkingSpotProvider>
                                     {children}
-                                </VehicleProvider>
-                            </VehicleServiceProvider>
-                        </CarServiceProvider>
-                    </ParkingSpotProvider>
+                                </ParkingSpotProvider>
+                            </CarServiceProvider>
+                        </VehicleProvider>
+                    </VehicleServiceProvider>
                 </UserProvider>
             </RegisterProvider>
         </AuthProvider>
     );
 };
-
 export default AppProviders;

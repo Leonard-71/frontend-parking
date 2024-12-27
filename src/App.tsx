@@ -15,12 +15,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rute publice */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
 
-        {/* Rute protejate */}
         <Route
           element={
             <ProtectedRoute>
@@ -35,11 +33,9 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
         </Route>
 
-        {/* Fallback pentru rute inexistente */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
 
-      {/* Notificări */}
       <ToastContainer />
     </BrowserRouter>
   );

@@ -63,8 +63,6 @@ const Vehicles = () => {
         }
     };
 
-
-    if (loading) return <p>Loading vehicles...</p>;
     if (error) return <p>{error}</p>;
 
     return (
