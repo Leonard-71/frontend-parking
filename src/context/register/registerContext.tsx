@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { REGISTER_TEXTS } from '../../translations/register/register';
-import { apiClient } from '../api/apiClient';
+import { apiClient } from '../../services/api/apiClient';
 
 interface RegisterContextType {
     register: (formData: RegisterFormData) => Promise<void>;

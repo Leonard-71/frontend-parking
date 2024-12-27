@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { apiClient } from '../../context/api/apiClient';
+import { apiClient } from '../../services/api/apiClient';
 import { User } from '../../interface/user-profile/userProfile.interface';
 
 const useUserProfile = (userId: string) => {

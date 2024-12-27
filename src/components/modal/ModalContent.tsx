@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useVehicleContext } from "../../context/vehicle/VehicleContext";
 import { useCarService } from "../../context/homepage/CarServiceContext";
 import { getGlobalUserId } from "../../hooks/userIdStore";
 import { ModalContentProps } from "../../interface/modal/modal.interface";
@@ -8,6 +7,7 @@ import ParkingSpotService from "../../hooks/parking-spots/parkingSpotService";
 import ParkingSessionService from "../../hooks/parking-session/ParkingSessionService";
 import UserSubscriptionService from "../../hooks/user-subscriptions/UserSubscriptionService";
 import { ParkingSpot } from "../../interface/parking-spots/parkingSpots.interface";
+import { useVehicleContext } from "../../hooks/vehicle/useVehicleContext";
 
 const ModalContent: React.FC<ModalContentProps> = ({ modalType, onClose }) => {
     const { vehicles, fetchVehicles } = useVehicleContext();

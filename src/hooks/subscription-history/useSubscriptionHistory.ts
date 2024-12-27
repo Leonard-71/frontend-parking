@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { apiClient } from '../../context/api/apiClient';
+import { apiClient } from '../../services/api/apiClient';
 import { SubscriptionHistory } from '../../interface/subscription-history/subscriptionHistory.interface';
 
 const useSubscriptionHistory = (userId: string) => {

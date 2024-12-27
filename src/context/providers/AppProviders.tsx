@@ -12,15 +12,15 @@ const AppProviders: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         <AuthProvider>
             <RegisterProvider>
                 <UserProvider>
-                    <VehicleProvider>
-                        <ParkingSpotProvider>
-                            <CarServiceProvider>
-                                <VehicleServiceProvider>
+                    <ParkingSpotProvider>
+                        <CarServiceProvider>
+                            <VehicleServiceProvider>
+                                <VehicleProvider>
                                     {children}
-                                </VehicleServiceProvider>
-                            </CarServiceProvider>
-                        </ParkingSpotProvider>
-                    </VehicleProvider>
+                                </VehicleProvider>
+                            </VehicleServiceProvider>
+                        </CarServiceProvider>
+                    </ParkingSpotProvider>
                 </UserProvider>
             </RegisterProvider>
         </AuthProvider>

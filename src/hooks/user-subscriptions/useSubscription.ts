@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { useState } from 'react';
-import { apiClient } from '../../context/api/apiClient';
+import { apiClient } from '../../services/api/apiClient';
 import { getGlobalUserId } from '../userIdStore';
 
 export const useSubscription = () => {

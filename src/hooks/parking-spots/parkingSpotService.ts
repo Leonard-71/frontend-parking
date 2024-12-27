@@ -1,5 +1,5 @@
 import { ParkingSpot } from '../../interface/parking-spots/parkingSpots.interface';
-import { apiClient } from '../../context/api/apiClient';
+import { apiClient } from '../../services/api/apiClient';
 
 export class ParkingSpotService {
     private readonly baseUrl = '/parking-spots';

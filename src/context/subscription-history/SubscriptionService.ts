@@ -1,4 +1,4 @@
-import { apiClient } from "../api/apiClient";
+import { apiClient } from "../../services/api/apiClient";
 import { SubscriptionHistory } from "../../interface/subscription-history/subscriptionHistory.interface";
 
 export class SubscriptionService {

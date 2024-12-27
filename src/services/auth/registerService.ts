@@ -1,4 +1,4 @@
-import { apiClient } from "../../context/api/apiClient";
+import { apiClient } from "../api/apiClient";
 
  
 export const registerService = async (formData: {
