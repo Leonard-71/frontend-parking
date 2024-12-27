@@ -1,29 +1,10 @@
-import { useEffect, useState } from 'react';
-import { apiClient } from '../../services/api/apiClient';  
+import { useContext } from 'react';
+import { SubscriptionContext } from '../../context/subscription/SubscriptionContext';
 
-const useSubscriptions = () => {
-    const [subscriptions, setSubscriptions] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        const fetchSubscriptions = async () => {
-            try {
-                setLoading(true);
-                const response = await apiClient.get('/subscriptions'); 
-                setSubscriptions(response.data.subscriptions); 
-            } catch (err) {
-                console.error('Eroare la preluarea subscripțiilor:', err);
-                setError('Nu am putut prelua subscripțiile.');
-            } finally {
-                setLoading(false);
-            }
-        };
-        
-
-        fetchSubscriptions();
-    }, []); 
-    return { subscriptions, loading, error };
+export const useSubscriptionContext = () => {
+    const context = useContext(SubscriptionContext);
+    if (!context) {
+        throw new Error('useSubscriptionContext must be used within a SubscriptionProvider.');
+    }
+    return context;
 };
-
-export default useSubscriptions;

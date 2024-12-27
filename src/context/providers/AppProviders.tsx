@@ -5,21 +5,24 @@ import { VehicleProvider } from '../vehicle/VehicleContext';
 import { CarServiceProvider } from '../homepage/CarServiceContext';
 import { VehicleServiceProvider } from '../vehicle/vehicleServiceContext';
 import { ParkingSpotProvider } from '../parking-spot/parkingSpotServiceContext';
+import { SubscriptionProvider } from '../subscription/SubscriptionContext';
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
     return (
         <AuthProvider>
             <RegisterProvider>
                 <UserProvider>
-                    <VehicleServiceProvider>
-                        <VehicleProvider>
-                            <CarServiceProvider>
-                                <ParkingSpotProvider>
-                                    {children}
-                                </ParkingSpotProvider>
-                            </CarServiceProvider>
-                        </VehicleProvider>
-                    </VehicleServiceProvider>
+                    <SubscriptionProvider>
+                        <VehicleServiceProvider>
+                            <VehicleProvider>
+                                <CarServiceProvider>
+                                    <ParkingSpotProvider>
+                                        {children}
+                                    </ParkingSpotProvider>
+                                </CarServiceProvider>
+                            </VehicleProvider>
+                        </VehicleServiceProvider>
+                    </SubscriptionProvider>
                 </UserProvider>
             </RegisterProvider>
         </AuthProvider>

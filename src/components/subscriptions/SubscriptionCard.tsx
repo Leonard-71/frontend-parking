@@ -11,9 +11,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ subscription }) => 
 
     const { confirmSubscription, checkActiveSubscription, isLoading } = useSubscription();
 
-    const handleSubscriptionClick = () => {
-        setPopupOpen(true);
-    };
+    const handleSubscriptionClick = () => setPopupOpen(true);
 
     const confirmSubscriptionHandler = async () => {
         try {
@@ -23,25 +21,24 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ subscription }) => 
                 toast.error(SUBSCRIPTION_CARD_TEXTS.duplicateSubscriptionError);
                 return;
             }
+
             await confirmSubscription(subscription.id);
             toast.success(
                 `${SUBSCRIPTION_CARD_TEXTS.successMessage} ${subscription.name}!`
             );
         } catch (error: any) {
-            if (error.message === 'User already has an active subscription of this type.') {
-                toast.error(SUBSCRIPTION_CARD_TEXTS.duplicateSubscriptionError);
-            } else {
-                toast.error(SUBSCRIPTION_CARD_TEXTS.errorMessage);
-            }
+            toast.error(
+                error.message === 'User already has an active subscription of this type.'
+                    ? SUBSCRIPTION_CARD_TEXTS.duplicateSubscriptionError
+                    : SUBSCRIPTION_CARD_TEXTS.errorMessage
+            );
             console.error('Error confirming subscription:', error.message);
         } finally {
             setPopupOpen(false);
         }
     };
 
-    const cancelSubscription = () => {
-        setPopupOpen(false);
-    };
+    const cancelSubscription = () => setPopupOpen(false);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
