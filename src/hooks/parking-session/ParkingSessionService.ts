@@ -1,4 +1,4 @@
-import { apiClient } from '../api/apiClient';
+import { apiClient } from '../../context/api/apiClient';
 
 export class ParkingSessionService {
     private readonly baseUrl = '/parking-sessions';

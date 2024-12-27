@@ -1,7 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
-import Navbar from "../navbar/Navbar";
-import Footer from "../footer/Footer";
-import { isTokenExpired } from "../../hooks/api/tokenExpired";
+import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/footer/Footer";
+import { isTokenExpired } from "../utils/tokenUtils";
 
 function AuthenticatedLayout() {
   const token = localStorage.getItem("access_token");

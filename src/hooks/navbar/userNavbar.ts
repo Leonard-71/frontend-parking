@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
-import { apiClient } from '../api/apiClient';
+import { apiClient } from '../../context/api/apiClient';
 import { User } from '../../interface/navbar/user.interface';
 
 

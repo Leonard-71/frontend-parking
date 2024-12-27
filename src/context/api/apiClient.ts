@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { isTokenExpired } from "./tokenExpired";
+import axios from 'axios'; 
+import { isTokenExpired } from '../../utils/tokenUtils';
 
 export const API_BASE_URL = 'http://localhost:3000';
 

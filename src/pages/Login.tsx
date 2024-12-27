@@ -1,17 +1,16 @@
-import { useNavigate } from "react-router-dom";
-import { LoginForm } from "../components/LoginForm/LoginForm";
-import CarAnimation from "../components/animations/car/CarAnimation";
-import { LOGIN_TEXTS } from "../translations/login/login";
+import { useNavigate } from 'react-router-dom';
+import { LoginForm } from '../components/LoginForm/LoginForm';
+import CarAnimation from '../components/animations/car/CarAnimation';
+import { LOGIN_TEXTS } from '../translations/login/login';
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleLogin = async (token: string) => {
+  const handleLogin = async () => {
     try {
-      localStorage.setItem("access_token", token);
-      navigate("/homepage", { replace: true });
+      navigate('/homepage', { replace: true });
     } catch (err) {
-      console.error("Error during login:", err);
+      console.error('Error during login:', err);
     }
   };
 

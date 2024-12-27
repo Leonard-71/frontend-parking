@@ -1,4 +1,4 @@
-import SubscriptionCard from '../components/subscriptions/PubscriptionCard';
+import SubscriptionCard from '../components/subscriptions/SubscriptionCard';
 import useSubscriptions from '../hooks/subscriptions/useSubscriptions';
 
 const Subscription = () => {

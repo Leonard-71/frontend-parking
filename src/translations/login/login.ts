@@ -3,12 +3,13 @@ export const LOGIN_TEXTS = {
     emailPlaceholder: 'Introduceți email',
     passwordPlaceholder: 'Introduceți parola',
     submitButton: 'Conectare',
-    noAccount: ' Nu ai un cont?',
+    noAccount: 'Nu ai un cont?',
     createAccount: 'Creează unul aici',
     errors: {
         emailRequired: 'Emailul este obligatoriu',
         emailInvalid: 'Emailul nu este valid',
         passwordRequired: 'Parola este obligatorie',
-        passwordMinLength: 'Parola trebuie să aibă minim 6 caractere'
+        passwordMinLength: 'Parola trebuie să aibă minim 6 caractere',
+        general: 'Eroare la autentificare. Vă rugăm să încercați din nou.' 
     }
-} as const; 
+} as const;

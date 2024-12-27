@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { apiClient } from '../api/apiClient';  
+import { apiClient } from '../../context/api/apiClient';  
 
 const useSubscriptions = () => {
     const [subscriptions, setSubscriptions] = useState<any[]>([]);

@@ -1,5 +1,5 @@
 import { Vehicle } from '../../interface/vehicle/vehicle.interface';
-import { apiClient } from '../api/apiClient';
+import { apiClient } from '../../context/api/apiClient';
 
 export class VehicleService {
     
@@ -21,9 +21,15 @@ export class VehicleService {
     }
 
     async getVehiclesForUser(userId: string): Promise<Vehicle[]> {
-        const response = await apiClient.get<Vehicle[]>(`${this.baseUrl}/user/${userId}`);
-        return Array.isArray(response.data) ? response.data : [];
+        try {
+            const response = await apiClient.get<Vehicle[]>(`${this.baseUrl}/user/${userId}`);
+            return Array.isArray(response.data) ? response.data : [];
+        } catch (error) {
+            console.error('Error fetching vehicles for user:', error);
+            throw error; 
+        }
     }
+    
     
     async softDeleteVehicle(id: string): Promise<void> {
         await apiClient.delete(`${this.baseUrl}/soft/${id}`);

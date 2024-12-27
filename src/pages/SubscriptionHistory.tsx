@@ -1,14 +1,20 @@
-import useSubscriptionHistory from '../hooks/subscription-history/useSubscriptionHistory';
+import { useEffect } from 'react';
 import { getGlobalUserId } from '../hooks/userIdStore';
+import { useSubscriptionContext } from '../context/subscription-history/SubscriptionContext';
 
 const SubscriptionHistory = () => {
     const userId = getGlobalUserId();
+    const { subscriptionsHistory, loading, error, fetchSubscriptionHistory } = useSubscriptionContext();
+
+    useEffect(() => {
+        if (userId) {
+            fetchSubscriptionHistory(userId);
+        }
+    }, [userId, fetchSubscriptionHistory]);
 
     if (!userId) {
         return <p className="text-red-500 text-center">Eroare: Nu s-a putut obține ID-ul utilizatorului.</p>;
     }
-
-    const { subscriptionsHistory, loading, error } = useSubscriptionHistory(userId);
 
     if (loading) {
         return <p className="text-white text-center">Se încarcă abonamentele...</p>;
@@ -18,7 +24,8 @@ const SubscriptionHistory = () => {
         return <p className="text-red-500 text-center">{error}</p>;
     }
 
-    const formatDate = (dateString: string) => {
+    const formatDate = (dateString: string | null) => {
+        if (!dateString) return 'N/A';
         const date = new Date(dateString);
         return date.toLocaleDateString('ro-RO', {
             day: '2-digit',
@@ -49,10 +56,17 @@ const SubscriptionHistory = () => {
                             <tr key={subscription.id} className="hover:bg-gray-200 transition duration-200">
                                 <td className="border-b border-gray-300 px-6 py-4 ">Abonament {subscription.name}</td>
                                 <td className="border-b border-gray-300 px-6 py-4 font-semibold text-blue-600">
-                                    {parseFloat(subscription.price.toString()).toFixed(2)} RON
+                                    {subscription.price !== undefined && subscription.price !== null
+                                        ? parseFloat(subscription.price.toString()).toFixed(2)
+                                        : 'N/A'}{' '}
+                                    RON
                                 </td>
-                                <td className="border-b border-gray-300 px-6 py-4">{formatDate(subscription.startDate)}</td>
-                                <td className="border-b border-gray-300 px-6 py-4">{subscription.endDate ? formatDate(subscription.endDate) : '-'}</td>
+                                <td className="border-b border-gray-300 px-6 py-4">
+                                    {formatDate(subscription.startDate)}
+                                </td>
+                                <td className="border-b border-gray-300 px-6 py-4">
+                                    {formatDate(subscription.endDate)}
+                                </td>
                                 <td className="border-b border-gray-300 px-6 py-4 ">
                                     {subscription.isActive ? (
                                         <span className="bg-green-200 text-green-800 px-2 py-1 rounded-full">Activ</span>

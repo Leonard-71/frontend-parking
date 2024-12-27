@@ -1,27 +1,33 @@
-import { useState } from "react";
-import useLogin from "../../hooks/login/useLogin";
-import { Input } from "../Input/Input";
-import { Button } from "../Button/Button";
-import { Link } from "react-router-dom";
-import { LOGIN_TEXTS } from "../../translations/login/login";
+import { useState } from 'react';
+import { useAuth } from '../../hooks/auth/useAuth';
+import { Input } from '../Input/Input';
+import { Button } from '../Button/Button';
+import { LOGIN_TEXTS } from '../../translations/login/login';
 
 export const LoginForm = ({ onSubmit }: { onSubmit: (token: string) => void }) => {
-  const [credentials, setCredentials] = useState({ email: "", password: "" });
-  const { login, isLoading, error } = useLogin();
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const { login } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!credentials.email || !credentials.password) {
-      alert("Toate câmpurile sunt obligatorii.");
+      alert(LOGIN_TEXTS.errors.general);
       return;
     }
 
     try {
-      const data = await login(credentials.email, credentials.password);
-      onSubmit(data.token);
+      setIsLoading(true);
+      setError(null);
+      await login(credentials.email, credentials.password);
+      onSubmit(localStorage.getItem('access_token')!);
     } catch (err) {
-      console.error(err);
+      setError(LOGIN_TEXTS.errors.general);
+      console.error('Error during login:', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -35,23 +41,24 @@ export const LoginForm = ({ onSubmit }: { onSubmit: (token: string) => void }) =
         type="email"
         placeholder={LOGIN_TEXTS.emailPlaceholder}
         value={credentials.email}
-        onChange={(e) => handleInputChange("email", e.target.value)}
+        onChange={(e) => handleInputChange('email', e.target.value)}
       />
       <Input
         type="password"
         placeholder={LOGIN_TEXTS.passwordPlaceholder}
         value={credentials.password}
-        onChange={(e) => handleInputChange("password", e.target.value)}
+        onChange={(e) => handleInputChange('password', e.target.value)}
       />
       {error && <p className="text-red-500 text-sm">{error}</p>}
       <Button type="submit" isLoading={isLoading} className="w-full">
         {LOGIN_TEXTS.submitButton}
       </Button>
-      <p className="mt-4 text-center">
-        {LOGIN_TEXTS.noAccount}{" "}
-        <Link to="/register" className="text-blue-500">
+
+      <p className="mt-4 text-center text-sm text-gray-600">
+        {LOGIN_TEXTS.noAccount}{' '}
+        <a href="/register" className="text-blue-500 hover:underline">
           {LOGIN_TEXTS.createAccount}
-        </Link>
+        </a>
       </p>
     </form>
   );

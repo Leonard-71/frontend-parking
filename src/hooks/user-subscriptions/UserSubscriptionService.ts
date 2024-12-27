@@ -1,4 +1,4 @@
-import { apiClient } from '../api/apiClient';
+import { apiClient } from '../../context/api/apiClient';
 
 export class UserSubscriptionService {
     private readonly baseUrl = '/user-subscriptions';
