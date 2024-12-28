@@ -5,26 +5,9 @@ import {
     calculatePriceDifference,
     hasPurchasedFreePlan,
 } from "../../services/subscription/SubscriptionService";
+import { Subscription, SubscriptionContextProps } from "../../interface/subscription/subscription.interface";
 
-interface Subscription {
-    id: string;
-    name: string;
-    price: number;
-    entries: number;
-    exits: number;
-    accessType: string;
-}
-
-interface SubscriptionContextProps {
-    subscriptions: Subscription[];
-    loading: boolean;
-    error: string | null;
-    purchaseSubscription: (subscriptionId: string) => Promise<void>;
-    calculatePriceDifference: (subscriptionId: string) => Promise<number>;
-    hasPurchasedFreePlan: () => Promise<boolean>;
-}
-
-const SubscriptionContext = createContext<SubscriptionContextProps | undefined>(undefined);
+export const SubscriptionContext = createContext<SubscriptionContextProps | undefined>(undefined);
 
 export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
@@ -90,12 +73,4 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
             {children}
         </SubscriptionContext.Provider>
     );
-};
-
-export const useSubscriptionContext = () => {
-    const context = useContext(SubscriptionContext);
-    if (!context) {
-        throw new Error("useSubscriptionContext must be used within a SubscriptionProvider");
-    }
-    return context;
 };

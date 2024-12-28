@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useParkingSpotContext } from "../../context/parking-spot/parkingSpotServiceContext";
+import { useParkingSpotContext } from "../../context/parking-spot--ref/parkingSpotServiceContext";
 import { ParkingSpotsProps } from "../../interface/parking-spots/parkingSpotsProps.interface";
 import { ParkingSpot } from "../../interface/parking-spots/parkingSpots.interface";
 

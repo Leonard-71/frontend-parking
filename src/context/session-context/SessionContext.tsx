@@ -1,9 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
-
-interface SessionContextProps {
-    token: string | null;
-    setToken: (token: string | null) => void;
-}
+import { SessionContextProps } from '../../interface/session-context/session-context.interface';
 
 const SessionContext = createContext<SessionContextProps | undefined>(undefined);
 

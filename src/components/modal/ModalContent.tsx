@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { useCarService } from "../../context/homepage/CarServiceContext";
-import { getGlobalUserId } from "../../hooks/userIdStore";
+import { useCarService } from "../../context/homepage--ref/CarServiceContext";
+import { getGlobalUserId } from "../../utils/userIdStore";
 import { ModalContentProps } from "../../interface/modal/modal.interface";
 import ParkingSpots from "../parking-spots/ParkingSpots";
-import ParkingSpotService from "../../hooks/parking-spots/parkingSpotService";
-import ParkingSessionService from "../../hooks/parking-session/ParkingSessionService";
-import UserSubscriptionService from "../../hooks/user-subscriptions/UserSubscriptionService";
+import ParkingSpotService from "../../hooks/parking-spots--ref/parkingSpotService";
+import ParkingSessionService from "../../hooks/parking-session--ref/ParkingSessionService";
+import UserSubscriptionService from "../../hooks/user-subscriptions--ref/UserSubscriptionService";
 import { ParkingSpot } from "../../interface/parking-spots/parkingSpots.interface";
 import { useVehicleContext } from "../../hooks/vehicle/useVehicleContext";
 

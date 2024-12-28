@@ -1,5 +1,11 @@
-import { useSubscriptionHistoryContext } from "../../context/subscription-history/SubscriptionHistoryContext";
+import { useContext } from "react"; 
+import { SubscriptionHistoryContext } from "../../context/subscription-history/SubscriptionHistoryContext";
 
 export const useSubscriptionHistory = () => {
-    return useSubscriptionHistoryContext();
+    const context = useContext(SubscriptionHistoryContext);
+    if (!context) {
+        throw new Error("useSubscriptionHistoryContext must be used within a SubscriptionHistoryProvider");
+    }
+    return context;
 };
+ 

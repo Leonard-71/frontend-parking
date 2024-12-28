@@ -2,9 +2,9 @@ import { AuthProvider } from '../auth/AuthContext';
 import { RegisterProvider } from '../register/registerContext';
 import { UserProvider } from '../user/UserContext';
 import { VehicleProvider } from '../vehicle/VehicleContext';
-import { CarServiceProvider } from '../homepage/CarServiceContext';
+import { CarServiceProvider } from '../homepage--ref/CarServiceContext';
 import { VehicleServiceProvider } from '../vehicle/vehicleServiceContext';
-import { ParkingSpotProvider } from '../parking-spot/parkingSpotServiceContext';
+import { ParkingSpotProvider } from '../parking-spot--ref/parkingSpotServiceContext';
 import { SubscriptionProvider } from '../subscription/SubscriptionContext';
 import { SubscriptionHistoryProvider } from '../subscription-history/SubscriptionHistoryContext';
 

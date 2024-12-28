@@ -2,20 +2,7 @@ import { createContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { REGISTER_TEXTS } from '../../translations/register/register';
 import { apiClient } from '../../services/api/apiClient';
-
-interface RegisterContextType {
-    register: (formData: RegisterFormData) => Promise<void>;
-    isLoading: boolean;
-    error: string | null;
-}
-
-interface RegisterFormData {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    phone: string;
-}
+import { RegisterContextType, RegisterFormData } from '../../interface/register/register.interface';
 
 export const RegisterContext = createContext<RegisterContextType | undefined>(undefined);
 

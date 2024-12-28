@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect, useRef } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { NAVBAR_TEXTS } from '../../translations/navbar/navbar';
-import { setGlobalUserId } from '../../hooks/userIdStore';
-import { useUserContext } from '../../hooks/user/useUserContext';
+import { setGlobalUserId } from '../../utils/userIdStore';
+import { useUserContext } from '../../hooks/user/useUser';
 
 interface NavbarProps {
     className?: string;

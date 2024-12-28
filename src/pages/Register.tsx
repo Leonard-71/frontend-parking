@@ -1,6 +1,6 @@
 
 import CarAnimation from "../components/animations/car/CarAnimation";
-import { RegisterForm } from "../components/RegisterForm/RegisterForm";
+import { RegisterForm } from "../components/register/RegisterForm";
 import { REGISTER_TEXTS } from "../translations/register/register";
 
 const Register = () => {

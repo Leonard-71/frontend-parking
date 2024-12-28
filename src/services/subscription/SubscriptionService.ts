@@ -1,5 +1,5 @@
 import { apiClient } from "../api/apiClient";
-import { getGlobalUserId } from "../../hooks/userIdStore";
+import { getGlobalUserId } from "../../utils/userIdStore";
 
 export const getSubscriptions = async () => {
   try {

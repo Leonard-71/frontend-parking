@@ -2,12 +2,7 @@ import { createContext, useState, ReactNode, useEffect } from 'react';
 import { User } from '../../interface/navbar/user.interface';
 import { UserService } from '../../services/user/UserService';
 import { jwtDecode } from 'jwt-decode';
-
-interface UserContextType {
-    user: User | null;
-    loading: boolean;
-    error: string | null;
-}
+import { UserContextType } from '../../interface/user/user.interface';
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 

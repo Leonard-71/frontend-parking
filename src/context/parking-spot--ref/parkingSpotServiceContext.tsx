@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { ParkingSpot } from '../../interface/parking-spots/parkingSpots.interface';
-import ParkingSpotService from '../../hooks/parking-spots/parkingSpotService';
+import ParkingSpotService from '../../hooks/parking-spots--ref/parkingSpotService';
 import { ParkingSpotContextProps } from '../../interface/parking-spots/parkingSpotContextProps.interface';
 
 const ParkingSpotContext = createContext<ParkingSpotContextProps | undefined>(undefined);

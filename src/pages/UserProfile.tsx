@@ -1,5 +1,5 @@
 import useUserProfile from '../hooks/user-profile/useUserProfile';
-import { getGlobalUserId } from '../hooks/userIdStore';
+import { getGlobalUserId } from '../utils/userIdStore';
 import { USER_PROFILE_TEXTS } from '../translations/user-profile/userProfile';
 import { useEffect, useState } from 'react';
 

@@ -1,26 +1,8 @@
 import React, { createContext, useContext, useState, useCallback } from "react";
 import { fetchSubscriptionHistory } from "../../services/subscription-history/SubscriptionHistoryService";
+import { Subscription, SubscriptionHistoryContextProps } from "../../interface/subscription-history/subscriptionHistory.interface";
 
-interface Subscription {
-    id: string;
-    subscription: {
-        name: string;
-        price: number;
-    } | null;
-    pricePaid: number;
-    startDate: string | null;
-    endDate: string | null;
-    isActive: boolean;
-}
-
-interface SubscriptionHistoryContextProps {
-    subscriptionsHistory: Subscription[];
-    loading: boolean;
-    error: string | null;
-    fetchHistory: (userId: string) => Promise<void>;
-}
-
-const SubscriptionHistoryContext = createContext<SubscriptionHistoryContextProps | undefined>(undefined);
+export const SubscriptionHistoryContext = createContext<SubscriptionHistoryContextProps | undefined>(undefined);
 
 export const SubscriptionHistoryProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [subscriptionsHistory, setSubscriptionsHistory] = useState<Subscription[]>([]);
@@ -47,10 +29,4 @@ export const SubscriptionHistoryProvider: React.FC<{ children: React.ReactNode }
     );
 };
 
-export const useSubscriptionHistoryContext = () => {
-    const context = useContext(SubscriptionHistoryContext);
-    if (!context) {
-        throw new Error("useSubscriptionHistoryContext must be used within a SubscriptionHistoryProvider");
-    }
-    return context;
-};
+

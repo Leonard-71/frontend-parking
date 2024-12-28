@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../hooks/auth/useAuth';
-import { Input } from '../Input/Input';
-import { Button } from '../Button/Button';
+import { Input } from '../[components]/input/Input';
+import { Button } from '../[components]/button/Button';
 import { LOGIN_TEXTS } from '../../translations/login/login';
 
 export const LoginForm = ({ onSubmit }: { onSubmit: (token: string) => void }) => {

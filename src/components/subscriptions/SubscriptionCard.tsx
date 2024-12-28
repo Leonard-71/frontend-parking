@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useSubscriptionContext } from "../../context/subscription/SubscriptionContext";
 import { SUBSCRIPTION_CARD_TEXTS } from "../../translations/subscription/card-subscriptions";
 import { formatPrice } from "../../utils/formatPrice";
+import { useSubscriptionContext } from "../../hooks/subscriptions/useSubscriptions";
 
 interface SubscriptionCardProps {
     subscription: {

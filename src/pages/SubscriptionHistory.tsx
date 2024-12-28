@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getGlobalUserId } from "../hooks/userIdStore";
+import { getGlobalUserId } from "../utils/userIdStore";
 import { useSubscriptionHistory } from "../hooks/subscription-history/useSubscriptionHistory";
 import { SUBSCRIPTION_HISTORY_TEXTS } from "../translations/subscription-history/subscriptionHistoryTexts";
 import { formatDate } from "../utils/formatDate";

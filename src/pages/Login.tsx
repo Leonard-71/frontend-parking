@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { LoginForm } from '../components/LoginForm/LoginForm';
+import { LoginForm } from '../components/login/LoginForm';
 import CarAnimation from '../components/animations/car/CarAnimation';
 import { LOGIN_TEXTS } from '../translations/login/login';
 

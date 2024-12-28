@@ -1,5 +1,5 @@
 import SubscriptionCard from "../components/subscriptions/SubscriptionCard";
-import { useSubscriptionContext } from "../context/subscription/SubscriptionContext";
+import { useSubscriptionContext } from "../hooks/subscriptions/useSubscriptions";
 
 const Subscription: React.FC = () => {
     const { subscriptions, loading, error } = useSubscriptionContext();

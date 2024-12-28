@@ -2,19 +2,7 @@ import { createContext, useState, useEffect, useCallback } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { isTokenExpired, refreshAccessToken } from '../../utils/tokenUtils';
 import { loginService, logoutService } from '../../services/auth/authService';
-
-interface AuthContextType {
-    user: string | null;
-    token: string | null;
-    login: (email: string, password: string) => Promise<void>;
-    logout: () => void;
-}
-
-interface DecodedToken {
-    userId: string;
-    role: string;
-    exp: number;
-}
+import { AuthContextType, DecodedToken } from '../../interface/auth/auth.interface';
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 

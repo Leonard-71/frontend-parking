@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { VEHICLE_TEXTS } from '../translations/vehicles/vehecles';
-import { getGlobalUserId } from '../hooks/userIdStore';
+import { getGlobalUserId } from '../utils/userIdStore';
 import { Vehicle } from '../interface/vehicle/vehicle.interface';
 import { useVehicleService } from '../hooks/vehicle/useVehicleService';
 import VehicleList from '../components/vehicle/VehicleList';

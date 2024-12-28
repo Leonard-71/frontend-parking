@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Input } from '../Input/Input';
-import { Button } from '../Button/Button';
+import { Input } from '../[components]/input/Input';
+import { Button } from '../[components]/button/Button';
 import { REGISTER_TEXTS } from '../../translations/register/register';
 import { useRegister } from '../../hooks/register/useRegister';
 
