@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Vehicle } from '../../interface/vehicle/vehicle.interface';
 import { VEHICLE_TEXTS } from '../../translations/vehicles/vehecles';
-
-interface VehicleListProps {
-    vehicles: Vehicle[];
-    onEdit: (vehicle: Vehicle) => void;
-    onDelete: (id: string, type: 'soft' | 'hard') => void;
-}
+import { VehicleListProps } from '../../interface/vehicle/listProps.interface';
 
 const VehicleList: React.FC<VehicleListProps> = ({ vehicles, onEdit, onDelete }) => {
     const [isMenuOpen, setIsMenuOpen] = useState<string | null>(null);

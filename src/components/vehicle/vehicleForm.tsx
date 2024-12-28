@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Vehicle } from '../../interface/vehicle/vehicle.interface';
 import { VEHICLE_TEXTS } from '../../translations/vehicles/vehecles';
-
-interface VehicleFormProps {
-    initialData?: Partial<Vehicle>;
-    onSave: (data: Omit<Vehicle, 'id'>) => void;
-    onCancel: () => void;
-}
+import { VehicleFormProps } from '../../interface/vehicle/formProps.interface';
 
 const VehicleForm: React.FC<VehicleFormProps> = ({ initialData, onSave, onCancel }) => {
     const [formData, setFormData] = useState({

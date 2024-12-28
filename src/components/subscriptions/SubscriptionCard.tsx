@@ -4,17 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { SUBSCRIPTION_CARD_TEXTS } from "../../translations/subscription/card-subscriptions";
 import { formatPrice } from "../../utils/formatPrice";
 import { useSubscriptionContext } from "../../hooks/subscriptions/useSubscriptions";
-
-interface SubscriptionCardProps {
-    subscription: {
-        id: string;
-        name: string;
-        price: number;
-        entries: number;
-        exits: number;
-        accessType: string;
-    };
-}
+import { SubscriptionCardProps } from "../../interface/subscription-card/subscription-card.interface";
 
 const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ subscription }) => {
     const [isPopupOpen, setPopupOpen] = useState(false);

@@ -1,7 +1,7 @@
-import { Vehicle } from './vehicle.interface';
+import { Vehicle } from "./vehicle.interface";
 
 export interface VehicleFormProps {
-    initialData?: Vehicle;
-    onSave: (vehicle: Omit<Vehicle, 'id'>) => void;
+    initialData?: Partial<Vehicle>;
+    onSave: (data: Omit<Vehicle, 'id'>) => void;
     onCancel: () => void;
 }
