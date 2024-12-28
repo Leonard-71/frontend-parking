@@ -8,9 +8,7 @@ const UserProfile = () => {
     const { user, loading, error, updateUserProfile } = useUserProfile(userId!);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState<any>({});
-    const formatDate = (dateString?: string) => {
-        return dateString ? new Date(dateString).toLocaleDateString() : "-";
-    };
+
 
     useEffect(() => {
         if (user) {
@@ -114,12 +112,7 @@ const UserProfile = () => {
                             <p className="text-gray-700"><strong>{USER_PROFILE_TEXTS.firstName}</strong> {user?.firstName}</p>
                             <p className="text-gray-700"><strong>{USER_PROFILE_TEXTS.email}</strong> {user?.email}</p>
                             <p className="text-gray-700"><strong>{USER_PROFILE_TEXTS.phone}</strong> {user?.phone}</p>
-                            <p className="text-gray-700">
-                                <strong>{USER_PROFILE_TEXTS.createdAt}</strong> {formatDate(user?.createdAt)}
-                            </p>
-                            <p className="text-gray-700">
-                                <strong>{USER_PROFILE_TEXTS.updatedAt}</strong> {formatDate(user?.updatedAt)}
-                            </p>
+
                         </div>
                     )}
                 </div>
