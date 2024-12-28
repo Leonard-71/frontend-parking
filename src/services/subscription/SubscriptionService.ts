@@ -1,26 +1,53 @@
-import { apiClient } from '../../services/api/apiClient';
+import { apiClient } from "../api/apiClient";
+import { getGlobalUserId } from "../../hooks/userIdStore";
 
-export class SubscriptionService {
-    private readonly baseUrl = '/subscriptions';
+export const getSubscriptions = async () => {
+  try {
+    const response = await apiClient.get("/subscriptions");
+    return response.data.subscriptions;
+  } catch (error) {
+    throw new Error("Failed to fetch subscriptions.");
+  }
+};
 
-    async getSubscriptions() {
-        const response = await apiClient.get(`${this.baseUrl}`); 
-        return response.data.subscriptions;  
-    }
- 
-    async getSubscriptionHistory(userId: string) {
-        const response = await apiClient.get(`/user-subscriptions/user/${userId}`);
-        return response.data;
-    }
+export const purchaseSubscription = async (subscriptionId: string) => {
+  const userId = getGlobalUserId();
+  try {
+    const response = await apiClient.post("/user-subscriptions", {
+      userId,
+      subscriptionTypeId: subscriptionId,
+    });
+    return response.data;
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || "Failed to purchase subscription."
+    );
+  }
+};
 
-    async confirmSubscription(userId: string, subscriptionTypeId: string) {
-        const response = await apiClient.post('/user-subscriptions', { userId, subscriptionTypeId });
-        return response.data;
-    }
+export const calculatePriceDifference = async (subscriptionId: string) => {
+  const userId = getGlobalUserId();
+  try {
+    const response = await apiClient.post("/user-subscriptions/calculate-price", {
+      userId,
+      subscriptionTypeId: subscriptionId,
+    });
+    return response.data.adjustedPrice;  
+  } catch (error: any) {
+    throw new Error(
+      error.response?.data?.message || "Failed to calculate price difference."
+    );
+  }
+};
 
-    async checkActiveSubscription(userId: string, subscriptionTypeId: string): Promise<boolean> {
-        const response = await apiClient.post('/user-subscriptions/check-active', { userId, subscriptionTypeId });
-        return response.data;
-    }
-         
-}
+
+export const hasPurchasedFreePlan = async (): Promise<boolean> => {
+  const userId = getGlobalUserId();
+  try {
+    const response = await apiClient.get(`/user-subscriptions/user/${userId}`);
+    return response.data.some((subscription: any) => subscription.subscription.name === "FREE");
+  } catch (error) {
+    throw new Error("Failed to check if free plan was purchased.");
+  }
+};
+

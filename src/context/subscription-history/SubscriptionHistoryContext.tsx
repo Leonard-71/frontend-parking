@@ -1,29 +1,56 @@
-import { createContext, useState, ReactNode, useCallback } from 'react';
-import { SubscriptionHistoryService } from '../../services/subscription-history/SubscriptionHistoryService';
+import React, { createContext, useContext, useState, useCallback } from "react";
+import { fetchSubscriptionHistory } from "../../services/subscription-history/SubscriptionHistoryService";
 
-interface SubscriptionHistoryContextType {
-    subscriptionsHistory: any[];
-    fetchSubscriptionHistory: (userId: string) => Promise<void>;
+interface Subscription {
+    id: string;
+    subscription: {
+        name: string;
+        price: number;
+    } | null;
+    pricePaid: number;
+    startDate: string | null;
+    endDate: string | null;
+    isActive: boolean;
 }
 
-export const SubscriptionHistoryContext = createContext<SubscriptionHistoryContextType | undefined>(undefined);
+interface SubscriptionHistoryContextProps {
+    subscriptionsHistory: Subscription[];
+    loading: boolean;
+    error: string | null;
+    fetchHistory: (userId: string) => Promise<void>;
+}
 
-export const SubscriptionHistoryProvider = ({ children }: { children: ReactNode }) => {
-    const [subscriptionsHistory, setSubscriptionsHistory] = useState<any[]>([]);
-    const subscriptionHistoryService = new SubscriptionHistoryService();
+const SubscriptionHistoryContext = createContext<SubscriptionHistoryContextProps | undefined>(undefined);
 
-    const fetchSubscriptionHistory = useCallback(async (userId: string) => {
+export const SubscriptionHistoryProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [subscriptionsHistory, setSubscriptionsHistory] = useState<Subscription[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const fetchHistory = useCallback(async (userId: string) => {
+        setLoading(true);
+        setError(null);
         try {
-            const data = await subscriptionHistoryService.getSubscriptionHistory(userId);
+            const data = await fetchSubscriptionHistory(userId);
             setSubscriptionsHistory(data);
         } catch (err) {
-            console.error('Error fetching subscription history:', err);
+            setError("Failed to load subscription history.");
+        } finally {
+            setLoading(false);
         }
     }, []);
 
     return (
-        <SubscriptionHistoryContext.Provider value={{ subscriptionsHistory, fetchSubscriptionHistory }}>
+        <SubscriptionHistoryContext.Provider value={{ subscriptionsHistory, loading, error, fetchHistory }}>
             {children}
         </SubscriptionHistoryContext.Provider>
     );
+};
+
+export const useSubscriptionHistoryContext = () => {
+    const context = useContext(SubscriptionHistoryContext);
+    if (!context) {
+        throw new Error("useSubscriptionHistoryContext must be used within a SubscriptionHistoryProvider");
+    }
+    return context;
 };

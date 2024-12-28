@@ -4,7 +4,7 @@ export const SUBSCRIPTION_CARD_TEXTS = {
     type: 'Tip: ',
     price: 'Preț: ',
     entries: 'Intrări/Ieșiri: ',
-    money: 'Lei/lună',
+    money: 'Lei',
     selectSubscription: 'Alege planul',
     inside :'Interior',
     outside: 'Exterior',
