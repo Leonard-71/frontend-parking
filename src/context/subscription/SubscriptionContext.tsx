@@ -34,7 +34,7 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
         try {
             return await hasPurchasedFreePlan();
         } catch (err: any) {
-            setError(err.message || "Failed to check if free plan was purchased.");
+            setError(err.message);
             return false;
         }
     }, []);

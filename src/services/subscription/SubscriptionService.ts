@@ -6,7 +6,8 @@ export const getSubscriptions = async () => {
     const response = await apiClient.get("/subscriptions");
     return response.data.subscriptions;
   } catch (error) {
-    throw new Error("Failed to fetch subscriptions.");
+    console.error("Error fetching subscriptions:", error);  
+    return []; 
   }
 };
 
@@ -47,7 +48,8 @@ export const hasPurchasedFreePlan = async (): Promise<boolean> => {
     const response = await apiClient.get(`/user-subscriptions/user/${userId}`);
     return response.data.some((subscription: any) => subscription.subscription.name === "FREE");
   } catch (error) {
-    throw new Error("Failed to check if free plan was purchased.");
+    console.error("Error checking free plan:", error);
+    return false;  
   }
 };
 

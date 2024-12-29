@@ -67,7 +67,7 @@ const SubscriptionCard: React.FC<SubscriptionCardProps> = ({ subscription }) => 
     }, [isPopupOpen]);
 
     return (
-        <div className="relative mr-10 w-full max-w-sm shadow-lg flex flex-col p-6 my-4 rounded-lg bg-test2 hover:scale-105 transition-transform">
+        <div className="relative mr-10 w-full max-w-sm shadow-lg flex flex-col p-6 my-4 rounded-lg bg-test2  ">
             <h2 className="text-3xl font-bold text-center py-4 text-black">
                 {subscription.name || SUBSCRIPTION_CARD_TEXTS.missing}
             </h2>

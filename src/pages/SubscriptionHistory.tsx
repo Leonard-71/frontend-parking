@@ -14,8 +14,6 @@ const SubscriptionHistory: React.FC = () => {
         }
     }, [userId, fetchHistory]);
 
-
-
     return (
         <div className="w-full flex flex-col bg-gradient-to-r from-gray-800 to-gray-900">
             <div className="flex-grow p-8">
@@ -24,8 +22,6 @@ const SubscriptionHistory: React.FC = () => {
                 </h1>
                 {loading ? (
                     <p className="text-center text-white">{SUBSCRIPTION_HISTORY_TEXTS.loading}</p>
-                ) : error ? (
-                    <p className="text-center text-red-500">{error}</p>
                 ) : (
                     <div
                         className="bg-white border border-gray-300 rounded-lg shadow-lg mx-auto"
@@ -58,7 +54,7 @@ const SubscriptionHistory: React.FC = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {subscriptionsHistory.length > 0 ? (
+                                {subscriptionsHistory && subscriptionsHistory.length > 0 ? (
                                     subscriptionsHistory.map((subscription) => (
                                         <tr key={subscription.id} className="hover:bg-gray-200 transition duration-200">
                                             <td className="border-b border-gray-300 px-6 py-4">
@@ -104,7 +100,6 @@ const SubscriptionHistory: React.FC = () => {
                 )}
             </div>
         </div>
-
     );
 };
 
