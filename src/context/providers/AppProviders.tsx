@@ -7,25 +7,28 @@ import { VehicleServiceProvider } from '../vehicle/vehicleServiceContext';
 import { ParkingSpotProvider } from '../parking-spot--ref/parkingSpotServiceContext';
 import { SubscriptionProvider } from '../subscription/SubscriptionContext';
 import { SubscriptionHistoryProvider } from '../subscription-history/SubscriptionHistoryContext';
+import { UserVehiclesProvider } from '../user-vehicles/UserVehiclesContext';
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
     return (
         <AuthProvider>
             <RegisterProvider>
                 <UserProvider>
-                    <SubscriptionProvider>
-                        <SubscriptionHistoryProvider>
-                            <VehicleServiceProvider>
-                                <VehicleProvider>
-                                    <CarServiceProvider>
-                                        <ParkingSpotProvider>
-                                            {children}
-                                        </ParkingSpotProvider>
-                                    </CarServiceProvider>
-                                </VehicleProvider>
-                            </VehicleServiceProvider>
-                        </SubscriptionHistoryProvider>
-                    </SubscriptionProvider>
+                    <UserVehiclesProvider>
+                        <SubscriptionProvider>
+                            <SubscriptionHistoryProvider>
+                                <VehicleServiceProvider>
+                                    <VehicleProvider>
+                                        <CarServiceProvider>
+                                            <ParkingSpotProvider>
+                                                {children}
+                                            </ParkingSpotProvider>
+                                        </CarServiceProvider>
+                                    </VehicleProvider>
+                                </VehicleServiceProvider>
+                            </SubscriptionHistoryProvider>
+                        </SubscriptionProvider>
+                    </UserVehiclesProvider>
                 </UserProvider>
             </RegisterProvider>
         </AuthProvider>
