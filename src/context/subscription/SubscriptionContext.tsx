@@ -1,54 +1,77 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+import React, { createContext, useEffect, useState, useCallback } from "react";
 import {
     getSubscriptions,
     purchaseSubscription,
     calculatePriceDifference,
     hasPurchasedFreePlan,
+    decrementRemainingEntries,
 } from "../../services/subscription/SubscriptionService";
+import { fetchSubscriptionHistory } from "../../services/subscription-history/SubscriptionHistoryService";
 import { Subscription, SubscriptionContextProps } from "../../interface/subscription/subscription.interface";
+import { getGlobalUserId } from "../../utils/userIdStore";
 
 export const SubscriptionContext = createContext<SubscriptionContextProps | undefined>(undefined);
-
 export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
+    const [userSubscriptions, setUserSubscriptions] = useState<Subscription[]>([]);
+    const [activeSubscription, setActiveSubscription] = useState<Subscription | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchSubscriptions = async () => {
-            setLoading(true);
-            try {
-                const data = await getSubscriptions();
-                setSubscriptions(data);
-            } catch (err) {
-                setError("Failed to load subscriptions.");
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchSubscriptions();
-    }, []);
-
-    const handleHasPurchasedFreePlan = useCallback(async () => {
+    const fetchAvailableSubscriptions = useCallback(async () => {
+        setLoading(true);
         try {
-            return await hasPurchasedFreePlan();
-        } catch (err: any) {
-            setError(err.message);
-            return false;
+            const data = await getSubscriptions();
+            setSubscriptions(data);
+        } catch (err) {
+            console.error("Failed to load subscriptions:", err);
+            setError("Failed to load subscriptions.");
+        } finally {
+            setLoading(false);
         }
     }, []);
+
+    const fetchUserSubscriptions = useCallback(async () => {
+        setLoading(true);
+        try {
+            const userId = getGlobalUserId();
+            if (!userId) {
+                throw new Error("User ID is null or undefined.");
+            }
+            const userSubs: Subscription[] = await fetchSubscriptionHistory(userId);
+            setUserSubscriptions(userSubs);
+
+            const activeSub = userSubs.find((sub: Subscription) => sub.isActive);
+            setActiveSubscription(activeSub || null);
+        } catch (err) {
+            console.error("Failed to fetch user subscriptions:", err);
+            setError("Failed to fetch user subscriptions.");
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+
+    const hasActiveSubscription = useCallback(() => {
+        return !!activeSubscription;
+    }, [activeSubscription]);
+
+    useEffect(() => {
+        fetchAvailableSubscriptions();
+        fetchUserSubscriptions();
+    }, [fetchAvailableSubscriptions, fetchUserSubscriptions]);
 
     const handlePurchaseSubscription = useCallback(async (subscriptionId: string) => {
         setLoading(true);
         try {
             await purchaseSubscription(subscriptionId);
+            await fetchUserSubscriptions();
         } catch (err: any) {
             setError(err.message || "Failed to purchase subscription.");
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [fetchUserSubscriptions]);
 
     const handleCalculatePriceDifference = useCallback(async (subscriptionId: string) => {
         try {
@@ -59,15 +82,32 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
     }, []);
 
+    const handleDecrementRemainingEntries = useCallback(async () => {
+        setLoading(true);
+        try {
+            await decrementRemainingEntries();
+            await fetchUserSubscriptions();
+        } catch (err) {
+            setError("Failed to decrement remaining entries.");
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }, [fetchUserSubscriptions]);
+
     return (
         <SubscriptionContext.Provider
             value={{
                 subscriptions,
+                userSubscriptions,
                 loading,
                 error,
                 purchaseSubscription: handlePurchaseSubscription,
                 calculatePriceDifference: handleCalculatePriceDifference,
-                hasPurchasedFreePlan: handleHasPurchasedFreePlan,
+                hasPurchasedFreePlan,
+                decrementRemainingEntries: handleDecrementRemainingEntries,
+                hasActiveSubscription,
+                activeSubscription,
             }}
         >
             {children}

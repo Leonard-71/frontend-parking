@@ -60,4 +60,31 @@ export const hasPurchasedFreePlan = async (): Promise<boolean> => {
   }
 };
 
+export const hasActiveSubscription = async (): Promise<boolean> => {
+  const userId = getGlobalUserId();
+  try {
+      const response = await apiClient.get(`/user-subscriptions/active/${userId}`); 
+      return response.data?.isActive === true;
+  } catch (error) {
+      console.error("Error checking active subscription:", error);
+      return false;
+  }
+};
+
+export const decrementRemainingEntries = async (): Promise<void> => {
+  const userId = getGlobalUserId();
+  try {
+      await apiClient.patch(`/user-subscriptions/decrement/${userId}`);
+  } catch (error) {
+      console.error("Error decrementing remaining entries:", error);
+      throw new Error("Failed to decrement remaining entries.");
+  }
+};
+
+
+
+
+
+
+
 
