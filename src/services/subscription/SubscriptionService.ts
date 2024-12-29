@@ -46,10 +46,18 @@ export const hasPurchasedFreePlan = async (): Promise<boolean> => {
   const userId = getGlobalUserId();
   try {
     const response = await apiClient.get(`/user-subscriptions/user/${userId}`);
-    return response.data.some((subscription: any) => subscription.subscription.name === "FREE");
+     
+    if (Array.isArray(response.data)) {
+      return response.data.some(
+        (subscription: any) => subscription.subscription?.name === "FREE"
+      );
+    }
+ 
+    return false;
   } catch (error) {
     console.error("Error checking free plan:", error);
     return false;  
   }
 };
+
 
