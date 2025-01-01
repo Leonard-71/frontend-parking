@@ -74,12 +74,23 @@ export const hasActiveSubscription = async (): Promise<boolean> => {
 export const decrementRemainingEntries = async (): Promise<void> => {
   const userId = getGlobalUserId();
   try {
-      await apiClient.patch(`/user-subscriptions/decrement/${userId}`);
+    await apiClient.patch(`/user-subscriptions/decrement/${userId}?field=remainingEntries`);
   } catch (error) {
-      console.error("Error decrementing remaining entries:", error);
-      throw new Error("Failed to decrement remaining entries.");
+    console.error("Error decrementing remaining entries:", error);
+    throw new Error("Failed to decrement remaining entries.");
   }
 };
+
+export const decrementRemainingExits = async (): Promise<void> => {
+  const userId = getGlobalUserId();
+  try {
+    await apiClient.patch(`/user-subscriptions/decrement/${userId}?field=remainingExits`);
+  } catch (error) {
+    console.error("Error decrementing remaining exits:", error);
+    throw new Error("Failed to decrement remaining exits.");
+  }
+};
+
 
 
 

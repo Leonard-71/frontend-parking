@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import Modal from '../components/modal/Modal';
 import EntryForm from '../components/parking/EntryForm';
+import ExitForm from '../components/parking/ExitForm';
 
 const Homepage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -35,6 +36,7 @@ const Homepage = () => {
 
 
                     <EntryForm />
+                    <ExitForm />
                 </div>
             </div>
             {isModalOpen && (

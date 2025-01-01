@@ -34,26 +34,32 @@ const SubscriptionHistory: React.FC = () => {
                         }}
                     >
                         <table className="w-full">
-                            <thead className="bg-gray-900 text-white">
+                            <thead className="bg-gray-900 text-white text-center">
                                 <tr>
-                                    <th className="border-b-2 border-gray-300 px-6 py-3 text-left">
+                                    <th className="border-b-2 border-gray-300 px-6 py-3">
                                         {SUBSCRIPTION_HISTORY_TEXTS.subscriptionName}
                                     </th>
-                                    <th className="border-b-2 border-gray-300 px-6 py-3 text-left">
+                                    <th className="border-b-2 border-gray-300 px-6 py-3">
                                         {SUBSCRIPTION_HISTORY_TEXTS.price}
                                     </th>
-                                    <th className="border-b-2 border-gray-300 px-6 py-3 text-left">
+                                    <th className="border-b-2 border-gray-300 px-6 py-3">
+                                        {SUBSCRIPTION_HISTORY_TEXTS.availableEntries}
+                                    </th>
+                                    <th className="border-b-2 border-gray-300 px-6 py-3">
+                                        {SUBSCRIPTION_HISTORY_TEXTS.availableExits}
+                                    </th>
+                                    <th className="border-b-2 border-gray-300 px-6 py-3">
                                         {SUBSCRIPTION_HISTORY_TEXTS.startDate}
                                     </th>
-                                    <th className="border-b-2 border-gray-300 px-6 py-3 text-left">
+                                    <th className="border-b-2 border-gray-300 px-6 py-3">
                                         {SUBSCRIPTION_HISTORY_TEXTS.endDate}
                                     </th>
-                                    <th className="border-b-2 border-gray-300 px-6 py-3 text-left">
+                                    <th className="border-b-2 border-gray-300 px-6 py-3">
                                         {SUBSCRIPTION_HISTORY_TEXTS.status}
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="text-center">
                                 {subscriptionsHistory && subscriptionsHistory.length > 0 ? (
                                     subscriptionsHistory.map((subscription) => (
                                         <tr key={subscription.id} className="hover:bg-gray-200 transition duration-200">
@@ -64,6 +70,12 @@ const SubscriptionHistory: React.FC = () => {
                                                 {subscription.subscription?.price
                                                     ? `${parseFloat(subscription.pricePaid.toString()).toFixed(2)} RON`
                                                     : "lipsă"}
+                                            </td>
+                                            <td className="border-b border-gray-300 px-6 py-4">
+                                                {subscription.remainingEntries || "-"}
+                                            </td>
+                                            <td className="border-b border-gray-300 px-6 py-4">
+                                                {subscription.remainingExits || "-"}
                                             </td>
                                             <td className="border-b border-gray-300 px-6 py-4">
                                                 {formatDate(subscription.startDate)}

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useSubscriptionContext } from "../../hooks/subscriptions/useSubscriptions";
-import { ENTRY_FORM_TEXTS } from "../../translations/parking/entryFormTexts";
+import { EXIT_FORM_TEXTS } from "../../translations/parking/exitFormTexts";
 import CarSelect from "../car-select/CarSelect";
 import { toast } from "react-toastify";
 
-const EntryForm: React.FC = () => {
-    const { userSubscriptions, loading, error, decrementRemainingEntries } = useSubscriptionContext();
-    const [hasEntered, setHasEntered] = useState(false);
+const ExitForm: React.FC = () => {
+    const { userSubscriptions, loading, error, decrementRemainingExits } = useSubscriptionContext();
+    const [hasExited, setHasExited] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [selectedCar, setSelectedCar] = useState<string | null>(null);
     const [isProcessing, setIsProcessing] = useState(false);
@@ -17,43 +17,41 @@ const EntryForm: React.FC = () => {
 
     const handleContinue = async () => {
         if (!activeSub) {
-            setErrorMessage(ENTRY_FORM_TEXTS.noSubscription);
+            setErrorMessage(EXIT_FORM_TEXTS.noSubscription);
             return;
         }
 
-        if (activeSub.remainingEntries <= 0) {
-            setErrorMessage(ENTRY_FORM_TEXTS.exhaustedEntries);
+        if (activeSub.remainingExits <= 0) {
+            setErrorMessage(EXIT_FORM_TEXTS.exhaustedExits);
             return;
         }
 
         setIsProcessing(true);
         try {
-            await decrementRemainingEntries();
+            await decrementRemainingExits();
             setErrorMessage(null);
-            setHasEntered(true);
-
-            toast.success(ENTRY_FORM_TEXTS.enteredParking, {
+            setHasExited(true);
+            toast.success(EXIT_FORM_TEXTS.exitedParking, {
                 style: { marginTop: "50px" },
-                toastId: "enteredParkingToast",
+                toastId: "exitedParkingToast",
                 autoClose: 3000,
                 onClose: () => {
                     setIsProcessing(false);
-                    setHasEntered(false);
+                    setHasExited(false);
                     setErrorMessage(null);
                     setSelectedCar(null);
                 },
             });
         } catch (err) {
             console.error(err);
-            setErrorMessage(ENTRY_FORM_TEXTS.errorDecrementing);
-
-            toast.error(ENTRY_FORM_TEXTS.errorDecrementing, {
+            setErrorMessage(EXIT_FORM_TEXTS.errorDecrementing);
+            toast.error(EXIT_FORM_TEXTS.errorDecrementing, {
                 style: { marginTop: "50px" },
                 toastId: "errorDecrementingToast",
                 autoClose: 3000,
                 onClose: () => {
                     setIsProcessing(false);
-                    setHasEntered(false);
+                    setHasExited(false);
                     setErrorMessage(null);
                     setSelectedCar(null);
                 },
@@ -74,22 +72,22 @@ const EntryForm: React.FC = () => {
     return (
         <div className="max-w-md mx-auto mt-8 bg-white p-6 rounded-lg shadow-md">
             <h1 className="text-2xl font-bold text-gray-800 text-center mb-6">
-                {ENTRY_FORM_TEXTS.formTitle}
+                {EXIT_FORM_TEXTS.formTitle}
             </h1>
 
             {loading ? (
-                <p className="text-center text-gray-600">{ENTRY_FORM_TEXTS.loadingSubscription}</p>
+                <p className="text-center text-gray-600">{EXIT_FORM_TEXTS.loadingSubscription}</p>
             ) : error ? (
-                <p className="text-center text-red-500">{ENTRY_FORM_TEXTS.errorSubscription}</p>
+                <p className="text-center text-red-500">{EXIT_FORM_TEXTS.errorSubscription}</p>
             ) : activeSub ? (
-                activeSub.remainingEntries > 0 ? null : (
+                activeSub.remainingExits > 0 ? null : (
                     <p className="text-center text-red-600 font-medium">
-                        {ENTRY_FORM_TEXTS.exhaustedEntries}
+                        {EXIT_FORM_TEXTS.exhaustedExits}
                     </p>
                 )
             ) : (
                 <p className="text-center text-red-600 font-medium">
-                    {ENTRY_FORM_TEXTS.noSubscription}
+                    {EXIT_FORM_TEXTS.noSubscription}
                 </p>
             )}
 
@@ -103,11 +101,11 @@ const EntryForm: React.FC = () => {
                 <CarSelect
                     value={selectedCar}
                     onChange={setSelectedCar}
-                    disabled={loading || !activeSub || activeSub.remainingEntries <= 0}
+                    disabled={loading || !activeSub || activeSub.remainingExits <= 0}
                 />
             </div>
 
-            {activeSub && activeSub.remainingEntries > 0 && (
+            {activeSub && activeSub.remainingExits > 0 && (
                 <div className="mt-6 text-center">
                     <div className="relative group">
                         <button
@@ -118,7 +116,7 @@ const EntryForm: React.FC = () => {
                             onClick={handleContinue}
                             disabled={loading || !selectedCar || isProcessing}
                         >
-                            {ENTRY_FORM_TEXTS.continueButton}
+                            {EXIT_FORM_TEXTS.continueButton}
                         </button>
                         {(loading || !selectedCar || isProcessing) && (
                             <span className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 w-max px-2 py-1 text-sm text-white bg-gray-700 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -132,4 +130,4 @@ const EntryForm: React.FC = () => {
     );
 };
 
-export default EntryForm;
+export default ExitForm;

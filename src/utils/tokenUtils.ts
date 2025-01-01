@@ -1,8 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
-import axios from 'axios';
+import axios from 'axios'; 
+import { API_BASE_URL } from '../services/api/apiClient';
 
-const API_BASE_URL = 'http://localhost:3000';
- 
 export const isTokenExpired = (token: string): boolean => {
   try {
     const { exp } = jwtDecode<{ exp: number }>(token);
@@ -12,7 +11,7 @@ export const isTokenExpired = (token: string): boolean => {
     return true;
   }
 };
- 
+
 export const refreshAccessToken = async (refreshToken: string): Promise<string> => {
   try {
     const response = await axios.post(`${API_BASE_URL}/auth/refresh`, { refresh_token: refreshToken });

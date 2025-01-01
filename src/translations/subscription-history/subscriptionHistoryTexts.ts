@@ -9,4 +9,6 @@ export const SUBSCRIPTION_HISTORY_TEXTS = {
     active: "Activ",
     inactive: "Inactiv",
     noData: "Nu există date momentan.",
+    availableEntries:"Intrari disponibile",
+    availableExits:"Iesiri disponibile"
 };

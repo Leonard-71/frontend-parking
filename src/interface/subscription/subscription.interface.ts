@@ -7,6 +7,7 @@ export interface Subscription {
     accessType: string;
     isActive: boolean;  
     remainingEntries: number;  
+    remainingExits: number;
 }
 
 
@@ -19,6 +20,7 @@ export interface SubscriptionContextProps {
     calculatePriceDifference: (subscriptionId: string) => Promise<number>;
     hasPurchasedFreePlan: () => Promise<boolean>;
     decrementRemainingEntries: () => Promise<void>;
+    decrementRemainingExits: () => Promise<void>;
     hasActiveSubscription: () => boolean; 
     activeSubscription: Subscription | null; 
 }

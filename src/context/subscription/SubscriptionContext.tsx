@@ -5,6 +5,7 @@ import {
     calculatePriceDifference,
     hasPurchasedFreePlan,
     decrementRemainingEntries,
+    decrementRemainingExits,
 } from "../../services/subscription/SubscriptionService";
 import { fetchSubscriptionHistory } from "../../services/subscription-history/SubscriptionHistoryService";
 import { Subscription, SubscriptionContextProps } from "../../interface/subscription/subscription.interface";
@@ -39,17 +40,20 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 throw new Error("User ID is null or undefined.");
             }
             const userSubs: Subscription[] = await fetchSubscriptionHistory(userId);
-            setUserSubscriptions(userSubs);
-
-            const activeSub = userSubs.find((sub: Subscription) => sub.isActive);
+            setUserSubscriptions(Array.isArray(userSubs) ? userSubs : []);
+            const activeSub = Array.isArray(userSubs)
+                ? userSubs.find((sub: Subscription) => sub.isActive)
+                : null;
             setActiveSubscription(activeSub || null);
         } catch (err) {
             console.error("Failed to fetch user subscriptions:", err);
             setError("Failed to fetch user subscriptions.");
+            setUserSubscriptions([]);
         } finally {
             setLoading(false);
         }
     }, []);
+
 
 
     const hasActiveSubscription = useCallback(() => {
@@ -95,6 +99,20 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
         }
     }, [fetchUserSubscriptions]);
 
+    const handleDecrementRemainingExits = useCallback(async () => {
+        setLoading(true);
+        try {
+            await decrementRemainingExits();
+            await fetchUserSubscriptions();
+        } catch (err) {
+            setError("Failed to decrement remaining exits.");
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    }, [fetchUserSubscriptions]);
+
+
     return (
         <SubscriptionContext.Provider
             value={{
@@ -106,6 +124,7 @@ export const SubscriptionProvider: React.FC<{ children: React.ReactNode }> = ({ 
                 calculatePriceDifference: handleCalculatePriceDifference,
                 hasPurchasedFreePlan,
                 decrementRemainingEntries: handleDecrementRemainingEntries,
+                decrementRemainingExits: handleDecrementRemainingExits,
                 hasActiveSubscription,
                 activeSubscription,
             }}

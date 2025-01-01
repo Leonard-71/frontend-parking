@@ -1,4 +1,6 @@
 export interface Subscription {
+    remainingExits: number;
+    remainingEntries: number;
     id: string;
     subscription: {
         name: string;

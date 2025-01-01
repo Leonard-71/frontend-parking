@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { useUserVehiclesContext } from "../../hooks/user-vehicles/useUserVehicles";
 import { CAR_SELECT_TEXTS } from "../../translations/car-select/carSelect";
 
-const CarSelect: React.FC<{ disabled?: boolean }> = ({ disabled = false }) => {
+const CarSelect: React.FC<{ value: string | null; onChange: (value: string) => void; disabled?: boolean }> = ({
+    value,
+    onChange,
+    disabled = false,
+}) => {
     const { userVehicles, isLoading, errorMessage } = useUserVehiclesContext();
-    const [selectedVehicleId, setSelectedVehicleId] = useState<string | null>(null);
 
     return (
         <div className="w-full max-w-md mx-auto mt-6">
@@ -13,8 +16,8 @@ const CarSelect: React.FC<{ disabled?: boolean }> = ({ disabled = false }) => {
                     id="car-select"
                     className={`block w-full bg-white border border-gray-300 rounded-md py-2 px-3 shadow-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 text-gray-800 text-sm transition-all ${disabled ? "bg-gray-100 cursor-not-allowed" : ""
                         }`}
-                    value={selectedVehicleId || ""}
-                    onChange={(e) => setSelectedVehicleId(e.target.value)}
+                    value={value || ""}
+                    onChange={(e) => onChange(e.target.value)}
                     disabled={disabled || isLoading || !!errorMessage || userVehicles.length === 0}
                 >
                     {isLoading ? (
