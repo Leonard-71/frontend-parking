@@ -17,5 +17,5 @@
     "noUnusedParameters": true, 
     "noFallthroughCasesInSwitch": true, 
   },
-  "include": ["vite.config.ts", "src/**/*.ts", "global.d.ts", "src/components/vehicle/vehicleList.tsx"]
+  "include": ["vite.config.ts", "src/**/*.ts", "global.d.ts", "src/**/*.tsx"],
 }
