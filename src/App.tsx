@@ -10,6 +10,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthenticatedLayout from './Layouts/AuthenticatedLayout';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             </ProtectedRoute>
           }
         >
+          <Route path="/home" element={<Home />} />
           <Route path="/homepage" element={<Homepage />} />
           <Route path="/subscription" element={<Subscription />} />
           <Route path="/vehicles" element={<Vehicles />} />
