@@ -36,13 +36,28 @@ const useUserProfile = (userId: string) => {
         }
     };
 
+    const deleteUserProfile = async () => {
+        try {
+            setLoading(true);
+            await apiClient.delete(`/users/${userId}`);
+            setUser(null);
+        } catch (err) {
+            console.error('Error deleting user profile:', err);
+            setError('Eroare la ștergerea contului.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
+
     useEffect(() => {
         if (userId && !user) {
             fetchUserProfile(); 
         }
     }, [userId, user]);
 
-    return { user, loading, error, fetchUserProfile, updateUserProfile };
+    return { user, loading, error, fetchUserProfile, updateUserProfile, deleteUserProfile };
 };
 
 export default useUserProfile;

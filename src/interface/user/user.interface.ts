@@ -4,4 +4,5 @@ export interface UserContextType {
     user: User | null;
     loading: boolean;
     error: string | null;
+    deleteUser: () => Promise<void>;
 }

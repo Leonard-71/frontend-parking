@@ -1,3 +1,4 @@
+import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from '../auth/AuthContext';
 import { RegisterProvider } from '../register/registerContext';
 import { UserProvider } from '../user/UserContext';
@@ -11,27 +12,30 @@ import { UserVehiclesProvider } from '../user-vehicles/UserVehiclesContext';
 
 const AppProviders = ({ children }: { children: React.ReactNode }) => {
     return (
-        <AuthProvider>
-            <RegisterProvider>
-                <UserProvider>
-                    <UserVehiclesProvider>
-                        <SubscriptionProvider>
-                            <SubscriptionHistoryProvider>
-                                <VehicleServiceProvider>
-                                    <VehicleProvider>
-                                        <CarServiceProvider>
-                                            <ParkingSpotProvider>
-                                                {children}
-                                            </ParkingSpotProvider>
-                                        </CarServiceProvider>
-                                    </VehicleProvider>
-                                </VehicleServiceProvider>
-                            </SubscriptionHistoryProvider>
-                        </SubscriptionProvider>
-                    </UserVehiclesProvider>
-                </UserProvider>
-            </RegisterProvider>
-        </AuthProvider>
+        <BrowserRouter>
+            <AuthProvider>
+                <RegisterProvider>
+                    <UserProvider>
+                        <UserVehiclesProvider>
+                            <SubscriptionProvider>
+                                <SubscriptionHistoryProvider>
+                                    <VehicleServiceProvider>
+                                        <VehicleProvider>
+                                            <CarServiceProvider>
+                                                <ParkingSpotProvider>
+                                                    {children}
+                                                </ParkingSpotProvider>
+                                            </CarServiceProvider>
+                                        </VehicleProvider>
+                                    </VehicleServiceProvider>
+                                </SubscriptionHistoryProvider>
+                            </SubscriptionProvider>
+                        </UserVehiclesProvider>
+                    </UserProvider>
+                </RegisterProvider>
+            </AuthProvider>
+        </BrowserRouter>
     );
 };
+
 export default AppProviders;

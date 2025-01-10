@@ -11,4 +11,7 @@ export const USER_PROFILE_TEXTS = {
     editProfile: "Editează Profilul",
     saveChanges: "Salvează Modificările",
     cancel: "Anulează",
+    deleteProfile: "Șterge Contul",
+    confirmDelete: "Ești sigur că vrei să ștergi contul?",
+    deleteError: "Eroare la ștergerea contului",
 }; 

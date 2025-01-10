@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 const UserProfile = () => {
     const userId = getGlobalUserId();
-    const { user, loading, error, updateUserProfile } = useUserProfile(userId!);
+    const { user, loading, error, updateUserProfile, deleteUserProfile } = useUserProfile(userId!);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState<any>({});
 
@@ -35,6 +35,7 @@ const UserProfile = () => {
         }
     };
 
+
     if (loading) {
         return (
             <div className="w-full flex items-center justify-center bg-gradient-to-r from-gray-800 to-gray-900 text-white text-xl">
@@ -50,6 +51,20 @@ const UserProfile = () => {
             </div>
         );
     }
+
+    const handleDelete = async () => {
+        const confirmDelete = window.confirm("Ești sigur că vrei să ștergi contul?");
+        if (confirmDelete) {
+            try {
+                await deleteUserProfile();
+            } catch (error) {
+                console.error('Eroare la ștergerea contului:', error);
+            }
+        }
+    };
+
+
+
 
     return (
         <div className=" w-full flex flex-col bg-gradient-to-r from-gray-800 to-gray-900 text-white">
@@ -140,7 +155,14 @@ const UserProfile = () => {
                         >
                             {USER_PROFILE_TEXTS.editProfile}
                         </button>
+
                     )}
+                    <button
+                        onClick={handleDelete}
+                        className="bg-red-600 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-red-700 transition duration-200"
+                    >
+                        {USER_PROFILE_TEXTS.deleteProfile || "Șterge Contul"}
+                    </button>
                 </div>
             </div>
         </div>
